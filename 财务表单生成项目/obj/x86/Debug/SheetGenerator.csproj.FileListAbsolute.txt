@@ -11,3 +11,6 @@ d:\用户目录\documents\visual studio 2010\Projects\财务表单生成项目\�
 d:\用户目录\documents\visual studio 2010\Projects\财务表单生成项目\财务表单生成项目\bin\Debug\SheetGenerator.pdb
 d:\用户目录\documents\visual studio 2010\Projects\财务表单生成项目\财务表单生成项目\obj\x86\Debug\SheetGenerator.exe
 d:\用户目录\documents\visual studio 2010\Projects\财务表单生成项目\财务表单生成项目\obj\x86\Debug\SheetGenerator.pdb
+D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\Debug\SheetGenerator.csproj.ResolveComReference.cache
+D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\Debug\SheetGenerator.exe
+D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\Debug\SheetGenerator.pdb

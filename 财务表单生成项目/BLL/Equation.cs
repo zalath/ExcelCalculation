@@ -12,7 +12,7 @@ namespace SheetGenerator.BLL
          * 解析算式
          * 按照算式部件取值
          */
-        internal int calculate(string equate,string bankIdentity,string month )//bankIdentity--银行名称加上备付金账号后六位
+        internal int Calculate(string equate,string bankIdentity,string month )//bankIdentity--银行名称加上备付金账号后六位
         {
             //format1:date(pre,now,next)_ifAddUp(yes,no)_SheetName_columnName%
             string[] equatePart = equate.Split('%');
@@ -37,47 +37,61 @@ namespace SheetGenerator.BLL
                     paramList.Add(equatePart[i]);
                 }
             }
-
-            return 1;
+            //循环计算部分。每个参数的每个取值。
+            List<List<double>> paramValueList = GetValue(paramList, bankIdentity, month);
+            List<double> resultList = new List<double>();
+            for (int i = 0; i < paramList.Count - 1; i++)
+            {
+                if (i >= 1)
+                {
+                    resultList = Calculating(resultList, paramValueList[i + 1], symbol[i]);
+                }
+                else
+                {
+                    resultList = Calculating(paramValueList[i], paramValueList[i + 1], symbol[i]);
+                }
+            }
+            //将结果保存如Excel文件中。
+                return 1;
         }
-        private List<double> GetValue(List<string> paramList,string bankIdentity,string month)
+        private List<List<double>> GetValue(List<string> paramList,string bankIdentity,string month)
         {
             ExcelOperation eo = new ExcelOperation();
-            List<double> param = new List<double>();
-            double val1 = 0;
-            double val2 = 0;
-            month = GetMonth(month);
+            List<List<double>> paramValueList = new List<List<double>>();
+            List<double> paramValue = new List<double>();
             for (int i = 0; i < paramList.Count; i++)
             {
+                //param = eo.GetValue(AppDomain.CurrentDomain.BaseDirectory + bankIdentity + '/' + tablename, daysCount, columndetail[1], columndetail[2], columndetail[4]);
                 string[] parts = paramList[i].Split('_');//表名_列名_是否累加(Y,N)_日期（pre,now,next）
-                string tablename = month + parts[0] + "[BJ0000004]北京钱袋宝支付技术有限公司_" + bankIdentity + ".xls";
-                eo.GetValue(AppDomain.CurrentDomain.BaseDirectory + bankIdentity+tablename
+                paramValue = eo.GetValue(parts,bankIdentity,month);
+                paramValueList.Add(paramValue);
             }
-            //open Excel,get value,return.
+            return paramValueList;
+        }
+        /*
+         * 将计算出的结果放入Excel中
+         */
+        private bool SetValue(List<string> paramResult,string bankIdentity,string month,List<double> resultList)
+        { 
         }
         /*
          * 按照符号运算两个参数
          */
-        private double Colculate(double val1, double val2, string symbol) 
-        { 
-            if(symbol == "+")
-            {
-                return val1 + val2;
-            }
-            else if (symbol == "-")
-            {
-                return val1 - val2;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-        private string GetMonth(string month)
+        private List<double> Calculating(List<double> val1, List<double> val2, string symbol) 
         {
-            DateTime dt = Convert.ToDateTime(month);
-            int days = DateTime.DaysInMonth(dt.Year, dt.Month);
-            return dt.ToString("yyyyMM") + "01_" + dt.ToString("yyyyMM") + days.ToString();
+            List<double> resultList = new List<double>();
+            for (int i = 0; i < val1.Count; i++)
+            {
+                if (symbol == "+")
+                {
+                    resultList.Add(val1[i] + val2[i]);
+                }
+                else if (symbol == "-")
+                {
+                    resultList.Add(val1[i] - val2[i]);
+                }
+            }
+            return resultList;
         }
     }
 }

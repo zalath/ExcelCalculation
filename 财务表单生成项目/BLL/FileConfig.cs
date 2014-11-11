@@ -18,10 +18,17 @@ namespace SheetGenerator.BLL
             xd.Load(AppDomain.CurrentDomain.BaseDirectory + "FileConfig.xml");
             xe = xd.DocumentElement;
         }
-
-        internal List<List<string>> GetBankList()
+        /*
+         * 获取银行标识的列表
+         */
+        internal List<string> GetBankList()
         {
             List<string> bankIdentity = new List<string>();
+            XmlNodeList xnl = xe.SelectNodes("//@CHname");
+            for (int i = 0; i < xnl.Count; i++)
+            {
+                bankIdentity.Add(xnl[i].SelectSingleNode("@Identity").Value);
+            }
             return bankIdentity;
         }
         /*
@@ -33,7 +40,7 @@ namespace SheetGenerator.BLL
             XmlNodeList xnl = xe.SelectSingleNode("/FileList").ChildNodes;
             for(int i=0;i<xnl.Count;i++)
             {
-                files.Add(xnl[i].SelectSingleNode("/@filename").Value);
+                files.Add(xnl[i].SelectSingleNode("@filename").Value);
             }
             return files;
         }
@@ -46,7 +53,7 @@ namespace SheetGenerator.BLL
             XmlNodeList xnl = xe.SelectSingleNode("//[@filename='"+filename+"']").ChildNodes;
             for (int i = 0; i < xnl.Count; i++)
             {
-                columns.Add(xnl[i].SelectSingleNode("/@filename").Value);
+                columns.Add(xnl[i].SelectSingleNode("@CHname").Value);
             }
             return columns;
         }
@@ -58,11 +65,11 @@ namespace SheetGenerator.BLL
             List<string> colParamDetail = new List<string>();
             XmlNode xnFile = xe.SelectSingleNode("//[@filename='" + filename + "']");
             XmlNode xnCol = xnFile.SelectSingleNode("//[@CHname='" + columnName + "']");
-            colParamDetail.Add(xnCol.SelectSingleNode("/@name").Value);
-            colParamDetail.Add(xnCol.SelectSingleNode("/@Vposision").Value);
-            colParamDetail.Add(xnCol.SelectSingleNode("/@Hposision").Value);
-            colParamDetail.Add(xnFile.SelectSingleNode("/@filename").Value);
-            colParamDetail.Add(xnFile.SelectSingleNode("/@tabletype").Value);
+            colParamDetail.Add(xnCol.SelectSingleNode("@name").Value);
+            colParamDetail.Add(xnCol.SelectSingleNode("@Vposision").Value);
+            colParamDetail.Add(xnCol.SelectSingleNode("@Hposision").Value);
+            colParamDetail.Add(xnFile.SelectSingleNode("@filename").Value);
+            colParamDetail.Add(xnFile.SelectSingleNode("@tabletype").Value);
             return colParamDetail;
         }
 
