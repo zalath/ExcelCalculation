@@ -1,0 +1,13 @@
+d:\用户目录\documents\visual studio 2010\Projects\财务表单生成项目\财务表单生成项目\obj\x86\Debug\Mainresource.baml
+d:\用户目录\documents\visual studio 2010\Projects\财务表单生成项目\财务表单生成项目\obj\x86\Debug\MainWindow.baml
+d:\用户目录\documents\visual studio 2010\Projects\财务表单生成项目\财务表单生成项目\obj\x86\Debug\MainWindow.g.cs
+d:\用户目录\documents\visual studio 2010\Projects\财务表单生成项目\财务表单生成项目\obj\x86\Debug\App.g.cs
+d:\用户目录\documents\visual studio 2010\Projects\财务表单生成项目\财务表单生成项目\obj\x86\Debug\SheetGenerator_MarkupCompile.cache
+d:\用户目录\documents\visual studio 2010\Projects\财务表单生成项目\财务表单生成项目\obj\x86\Debug\SheetGenerator.g.resources
+d:\用户目录\documents\visual studio 2010\Projects\财务表单生成项目\财务表单生成项目\obj\x86\Debug\SheetGenerator.Properties.Resources.resources
+d:\用户目录\documents\visual studio 2010\Projects\财务表单生成项目\财务表单生成项目\obj\x86\Debug\SheetGenerator.csproj.GenerateResource.Cache
+d:\用户目录\documents\visual studio 2010\Projects\财务表单生成项目\财务表单生成项目\obj\x86\Debug\SheetGenerator.csproj.ResolveComReference.cache
+d:\用户目录\documents\visual studio 2010\Projects\财务表单生成项目\财务表单生成项目\bin\Debug\SheetGenerator.exe
+d:\用户目录\documents\visual studio 2010\Projects\财务表单生成项目\财务表单生成项目\bin\Debug\SheetGenerator.pdb
+d:\用户目录\documents\visual studio 2010\Projects\财务表单生成项目\财务表单生成项目\obj\x86\Debug\SheetGenerator.exe
+d:\用户目录\documents\visual studio 2010\Projects\财务表单生成项目\财务表单生成项目\obj\x86\Debug\SheetGenerator.pdb
