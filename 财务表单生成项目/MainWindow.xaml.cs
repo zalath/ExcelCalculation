@@ -41,11 +41,9 @@ namespace SheetGenerator
         private void firstLvAccountBalancing_Click(object sender, RoutedEventArgs e)
         {
             Animation.anime_virticleMove_show(stCVS, -200, waitCVS, 0);
-            firstBtn.Click -= firstLvAccountBalancing_Click;
+            okBtn.Click -= firstLvAccountBalancing_Click;
             Thread waiting = new Thread(new ThreadStart(wait));
-            //Thread ththird = new Thread(new ThreadStart(firstLv));
             waiting.Start();
-            //ththird.Start();
         }
         private void wait()
         {

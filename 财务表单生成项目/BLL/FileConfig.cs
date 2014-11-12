@@ -13,7 +13,7 @@ namespace SheetGenerator.BLL
          */
         private XmlDocument xd = new XmlDocument();
         private XmlNode xe = null;
-        public void FileConfig()
+        public FileConfig()
         {
             xd.Load(AppDomain.CurrentDomain.BaseDirectory + "FileConfig.xml");
             xe = xd.DocumentElement;

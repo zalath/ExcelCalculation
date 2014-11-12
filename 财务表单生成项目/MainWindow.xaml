@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                Title="MainWindow" Height="400" Width="230" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
         MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+    <!--width = "230"-->
     <Window.Resources>
         <!--定义按钮样式-->
         <ResourceDictionary Source="/Mainresource.xaml"/>
@@ -11,20 +12,28 @@
         <Button Name="CloseButton" Style="{StaticResource buttonTemplate}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="CloseButton_Click" Margin="0,0,0,10" />
         <Canvas>
             <Canvas Name="stCVS">
-                <Button Content="一级对账" Canvas.Left="30" Canvas.Top="60" Foreground="White" Height="70" Name="firstBtn" Style="{StaticResource NextbuttonTemplate}" Width="70" Click="firstLvAccountBalancing_Click"  />
+                <Button Content="计算" Canvas.Left="30" Canvas.Top="60" Foreground="White" Height="70" Name="calculateBtn" Style="{StaticResource NextbuttonTemplate}" Width="70" Click="firstLvAccountBalancing_Click"  />
+                <Button Content="编辑算式" Canvas.Left="30" Canvas.Top="160" Foreground="White" Height="70" Name="editEquateBtn" Style="{StaticResource NextbuttonTemplate}" Width="70" Click="firstLvAccountBalancing_Click"  />
             </Canvas>
+            <!--计算面板-->
             <Canvas Name="waitCVS" Canvas.Left="200" Opacity="0">
                 <Label Name="waitlabel" Foreground="white" Canvas.Left="80" Canvas.Top="100" Content="..."></Label>
             </Canvas>
+            <!--修改算式部分-->
+                <!--算式列表-->
             <Canvas Name="okCVS" Canvas.Left="200" Opacity="0">
                 <Button Content="√" Canvas.Left="65" Canvas.Top="80" Foreground="White" Height="70" Name="okBtn" Style="{StaticResource NextbuttonTemplate}" Width="70" Click="CloseButton_Click" />
+            </Canvas>
+            <!--修改详细-->
+            <Canvas Name="hCVS" Canvas.Left="200" Opacity="0">
+                <Button Content="√" Canvas.Left="65" Canvas.Top="80" Foreground="White" Height="70" Name="oBtn" Style="{StaticResource NextbuttonTemplate}" Width="70" Click="CloseButton_Click" />
             </Canvas>
         </Canvas>
     </Grid>
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FF313131" Offset="0" />
-            <GradientStop Color="#FF797979" Offset="1" />
+            <GradientStop Color="#FF4B4747" Offset="1" />
         </LinearGradientBrush>
     </Window.Background>
 </Window>
