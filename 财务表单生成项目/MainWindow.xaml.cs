@@ -15,6 +15,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Diagnostics;
+using SheetGenerator.BLL;
 
 
 namespace SheetGenerator
@@ -33,15 +34,25 @@ namespace SheetGenerator
             Process.GetCurrentProcess().Kill();
             this.Close();
         }
-
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }
-        private void firstLvAccountBalancing_Click(object sender, RoutedEventArgs e)
+        private void ToCalculate_Click(object sender, RoutedEventArgs e)
         {
-            Animation.anime_virticleMove_show(stCVS, -200, waitCVS, 0);
-            okBtn.Click -= firstLvAccountBalancing_Click;
+            Animation.anime_virticleMove_show(MonthSelectSP, 0, 105, 1);
+        }
+        private void ToCalculate_Commit_Click(object sender, RoutedEventArgs e)
+        {
+            MainPart mp = new MainPart(this, BankListPart, this.Dispatcher);
+            Thread calculate = new Thread(new ThreadStart(mp.Calculate));
+            calculate.SetApartmentState(ApartmentState.STA);
+            calculate.Start();
+            Animation.anime_virticleMove_show(stCVS, -200, calculateCVS, 0);
+        }
+        private void EditEquate_Click(object sender, RoutedEventArgs e)
+        {
+            Animation.anime_virticleMove_show(stCVS, -200, calculateCVS, 0);
             Thread waiting = new Thread(new ThreadStart(wait));
             waiting.Start();
         }

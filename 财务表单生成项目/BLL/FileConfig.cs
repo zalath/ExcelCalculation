@@ -24,7 +24,7 @@ namespace SheetGenerator.BLL
         internal List<string> GetBankList()
         {
             List<string> bankIdentity = new List<string>();
-            XmlNodeList xnl = xe.SelectNodes("//@CHname");
+            XmlNodeList xnl = xe.SelectSingleNode("BankListMain").ChildNodes;
             for (int i = 0; i < xnl.Count; i++)
             {
                 bankIdentity.Add(xnl[i].SelectSingleNode("@Identity").Value);

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Document>
+  <equation>
+    <order></order>
+    <name></name>
+    <equate></equate>
+  </equation>
+  <equateFormat>
+    <order>代表计算序号的数字</order>
+    <name>算式的别称</name>
+    <equate>表名_列名_是否累加(Y,N)_日期（pre,now,next）%+/-%表名_列名_是否累加(Y,N)_日期（pre,now,next）%=%表名_列名_是否累加(Y,N)_日期（pre,now,next）</equate>
+  </equateFormat>
+</Document>

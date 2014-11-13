@@ -24,3 +24,4 @@ D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\D
 D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\Debug\SheetGenerator.csproj.GenerateResource.Cache
 D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\bin\Debug\SheetGenerator.exe
 D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\bin\Debug\SheetGenerator.pdb
+D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\Debug\SheetGenerator.csprojResolveAssemblyReference.cache

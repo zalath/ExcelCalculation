@@ -68,11 +68,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BLL\Animation.cs" />
+    <Compile Include="BLL\CreatePadPart.cs" />
     <Compile Include="BLL\Equation.cs" />
     <Compile Include="BLL\EquationConfig.cs" />
     <Compile Include="BLL\Error.cs" />
     <Compile Include="BLL\ExcelOperation.cs" />
     <Compile Include="BLL\FileConfig.cs" />
+    <Compile Include="BLL\MainPart.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
