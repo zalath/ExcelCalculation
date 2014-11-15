@@ -28,6 +28,16 @@ namespace SheetGenerator
         public MainWindow()
         {
             InitializeComponent();
+            GenerateYearList();
+        }
+        private void GenerateYearList()
+        {
+            for (int i = DateTime.Now.Year - 3; i <= DateTime.Now.Year + 3; i++)
+            {
+                YearCB.Items.Add(CreatePadPart.CreateLabel("", i.ToString(),Colors.Black));
+            }
+            MonthCB.Text = DateTime.Now.Month.ToString();
+            YearCB.Text = DateTime.Now.Year.ToString();
         }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
@@ -38,21 +48,46 @@ namespace SheetGenerator
         {
             this.DragMove();
         }
+        //计算部分
         private void ToCalculate_Click(object sender, RoutedEventArgs e)
         {
-            Animation.anime_virticleMove_show(MonthSelectSP, 0, 105, 1);
+            anime_CVSchange(stCVS, calGetDateCVS);
+        }
+        private void CalCancel_Click(object sender, RoutedEventArgs e)
+        {
+            anime_CVSchangeBack(calGetDateCVS,stCVS);
         }
         private void ToCalculate_Commit_Click(object sender, RoutedEventArgs e)
         {
-            MainPart mp = new MainPart(this, BankListPart, this.Dispatcher);
+            DateTime dt = new DateTime();
+            try
+            {
+                dt = Convert.ToDateTime(YearCB.Text + "-" +MonthCB.Text + "-01 01:01:01");
+            }
+            catch (Exception)
+            {
+                anime_ErrorTip(MonthErrorLB);
+                return;
+            }
+
+            FileConfig fConfig = new FileConfig();
+            List<string> bankList = fConfig.GetBankList();
+
+            for (int i = 0; i < bankList.Count; i++)
+            {
+                BankListPart.Children.Add(CreatePadPart.CreateLabel(bankList[i], (i + 1) + " : " + bankList[i], Colors.White));
+            }
+            MainPart mp = new MainPart(this, BankListPart, this.Dispatcher,dt,bankList,BankResultPart);
             Thread calculate = new Thread(new ThreadStart(mp.Calculate));
             calculate.SetApartmentState(ApartmentState.STA);
             calculate.Start();
-            Animation.anime_virticleMove_show(stCVS, -200, calculateCVS, 0);
+            anime_CVSchange(calGetDateCVS, calculateCVS);
         }
+
+        //编辑算式部分
         private void EditEquate_Click(object sender, RoutedEventArgs e)
         {
-            Animation.anime_virticleMove_show(stCVS, -200, calculateCVS, 0);
+            anime_CVSchange(stCVS, calculateCVS);
             Thread waiting = new Thread(new ThreadStart(wait));
             waiting.Start();
         }
@@ -65,10 +100,25 @@ namespace SheetGenerator
                 {
                     wrd = "";
                 }
-                this.Dispatcher.BeginInvoke((ThreadStart)delegate() { waitlabel.Content = wrd; });
+                this.Dispatcher.BeginInvoke((ThreadStart)delegate() { });
                 Thread.Sleep(500);
                 wrd += ".";
             }
+        }
+
+        private void ShowErrorBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            anime_VCS_aside(calculateCVS);
+            ShowErrorBtn.Content = "结果";
+            ShowErrorBtn.MouseEnter -= ShowErrorBtn_MouseEnter;
+            ShowErrorBtn.MouseEnter += ShowErrorBtn_MouseEnter_Back;
+        }
+        private void ShowErrorBtn_MouseEnter_Back(object sender, MouseEventArgs e)
+        {
+            anime_VCS_aside_Back(calculateCVS);
+            ShowErrorBtn.Content = "错误";
+            ShowErrorBtn.MouseEnter -= ShowErrorBtn_MouseEnter_Back;
+            ShowErrorBtn.MouseEnter += ShowErrorBtn_MouseEnter;
         }
     }
 }

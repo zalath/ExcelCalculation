@@ -24,7 +24,7 @@
     <bank>CEB_nbhs</bank>
     <bank>ABC_szzx</bank>
   </BankList2>
-<BankListMain>
+  <BankListMain>
   <CCB_xkz CHname="建设银行_西客站支行" Identity="中国建设银行004026">
     <file>cjmx</file>
     <file>wdzfx</file>
@@ -32,9 +32,92 @@
     <file>rjmx</file>
     <file>sjcj</file>
   </CCB_xkz>
+
+  <CMB_dyc CHname="招商银行_大运村支行" Identity="招商银行110703">
+    <file>cjmx</file>
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>sjcj</file>
+  </CMB_dyc>
+  <BOCM_fcm CHname="交通银行_阜成门支行" Identity="交通银行014366">
+    <file>cjmx</file>
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>sjcj</file>
+  </BOCM_fcm>
+  <CEB_jy CHname="光大银行_金源支行" Identity="中国光大银行049929">
+    <file>cjmx</file>
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>sjcj</file>
+  </CEB_jy>
+  <PSBC_zcl CHname="邮政储蓄_知春路支行" Identity="邮储银行010002">
+    <file>cjmx</file>
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>sjcj</file>
+  </PSBC_zcl>
+  <BjRCB_ft CHname="北农商_丰台支行" Identity="北京农村商业银行030476">
+    <file>cjmx</file>
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>sjcj</file>
+  </BjRCB_ft>
+  <BC_bqj CHname="中国银行_北七家支行" Identity="中国银行659625">
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>rjmx</file>
+  </BC_bqj>
+  <HXB_wgc CHname="华夏银行_魏公村分行" Identity="华夏银行441725">
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>rjmx</file>
+  </HXB_wgc>
+  <JSCB_bj CHname="江苏银行_北京分行" Identity="江苏银行138813">
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>rjmx</file>
+  </JSCB_bj>
+  <CNCB_shjd CHname="中信银行_上海嘉定支行" Identity="中信银行001184">
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>rjmx</file>
+  </CNCB_shjd>
+  <HXB_sz CHname="华夏银行_深圳分行" Identity="华夏银行511864">
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>rjmx</file>
+  </HXB_sz>
+  <CEB_hf CHname="光大银行_合肥分行" Identity="中国光大银行317027">
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>rjmx</file>
+  </CEB_hf>
+  <CEB_wh CHname="光大银行_武汉分行" Identity="中国光大银行294032">
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>rjmx</file>
+  </CEB_wh>
+  <CEB_nbhs CHname="光大银行_宁波海曙分行" Identity="中国光大银行026734">
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>rjmx</file>
+  </CEB_nbhs>
+  <ABC_szzx CHname="农业银行_深圳中心区支行" Identity="中国农业银行020369">
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>rjmx</file>
+  </ABC_szzx>
+  <AddUpAll CHname="汇总" Identity="all">
+    <file>cjmx</file>
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>rjmx</file>
+    <file>sjcj</file>
+</AddUpAll>
 </BankListMain>
   <FileList>
-    <cjmx filename="表1_2_1" tabletype="v" filetype=".xls" procedureName="[备付金对账].[备付金_获取统计_出金]">
+    <cjmx filename="表1_2" tabletype="v" filetype=".xls" procedureName="[备付金对账].[备付金_获取统计_出金]">
       <column1 Hposition="B" Vposition="9" name="bz" CHname="本期业务系统中借记客户资金账户金额"/>
       <column2 Hposition="C" Vposition="9" name="byc" CHname="本期业务应出金金额"/>
       <column3 Hposition="D" Vposition="9" name="bsxf" CHname="本期手续费等收入（支出）"/>

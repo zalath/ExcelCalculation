@@ -24,34 +24,55 @@ namespace SheetGenerator.BLL
         private MainWindow mainWindow;
         private object padPart;
         private Dispatcher dispatcher;
+        private DateTime month;
+        private List<string> bankList;
+        private object bankResultList;
 
-        public MainPart(MainWindow mainWindow, object padPart, Dispatcher dispatcher)
+        public MainPart(MainWindow mainWindow, object padPart, Dispatcher dispatcher, DateTime month,List<string> bankList,object bankResultList)
         {
             // TODO: Complete member initialization
             this.mainWindow = mainWindow;
             this.padPart = padPart;
             this.dispatcher = dispatcher;
+            this.month = month;
+            this.bankList = bankList;
+            this.bankResultList = bankResultList;
         }
+        /// <summary>
+        /// get bankIdentity list
+        /// get equate list
+        /// to each bankIdentity, calculate all the equtes.
+        /// </summary>
         internal void Calculate()
         {
-            /*
-             * get bank list
-             * show on the pad
-             * for each bank get the config file and calculate the equates
-             */
             StackPanel sp = (StackPanel)padPart;
 
-            FileConfig fc = new FileConfig();
-            List<string> bankList = fc.GetBankList();
+            EquationConfig eConfig = new EquationConfig();
+            List<DataRow> equateList = eConfig.GetEquation();
 
+            Equation eq = new Equation();
             for (int i = 0; i < bankList.Count; i++)
             {
-                dispatcher.Invoke(DispatcherPriority.Normal, 
-                                  (Action)(() => { sp.Children.Add(CreatePadPart.CreateLabel(bankList[i], (i + 1) + " : " + bankList[i])); }));
-            }
-            for (int i = 0; i < bankList.Count; i++)
-            {
-                
+                for (int j = 0; j < equateList.Count; j++)
+                {
+                    try
+                    {
+                        eq.Calculate(equateList[j]["算式"].ToString(), bankList[i], month);
+                        dispatcher.Invoke(DispatcherPriority.Normal,
+                                         (Action)(() => { (bankResultList as StackPanel).Children.Add(CreatePadPart.CreateLabel("", "ok", Colors.White)); }));
+                        //for (int k = 0; k < sp.Children.Count;k++ )
+                        //{
+                        //    if ((sp.Children[k] as Label).Name == bankList[i])
+                        //    {
+                        //        dispatcher.Invoke(DispatcherPriority.Normal,
+                        //                         (Action)(() => { (sp.Children[k] as Label).Content += "..ok"; }));
+                        //    }
+                        //}
+                    }
+                    catch (Exception error)
+                    {
+                    }
+                }
             }
         }
 

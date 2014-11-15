@@ -9,26 +9,62 @@
         <ResourceDictionary Source="/Mainresource.xaml"/>
     </Window.Resources>
     <Grid>
-        <Button Name="CloseButton" Style="{StaticResource buttonTemplate}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="CloseButton_Click" Margin="0,0,0,10" />
+        <Button Name="CloseButton" Style="{StaticResource ClosebtnTemplate}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="CloseButton_Click" Margin="0,0,0,10" />
         <Canvas>
             <Canvas Name="stCVS">
                 <Button Content="计算" Canvas.Left="30" Canvas.Top="60" Foreground="White" Height="70" Name="calculateBtn" Style="{StaticResource NextbuttonTemplate}" Width="70" Click="ToCalculate_Click"  />
-                <StackPanel Name="MonthSelectSP" Canvas.Left="205" Opacity="0" Canvas.Top="85" Width="115" Orientation="Horizontal">
-                    <Label Content="月份 : " Foreground="White"/>
-                    <TextBox Width="80"></TextBox>
-                </StackPanel>
                 <Button Content="编辑算式" Canvas.Left="30" Canvas.Top="160" Foreground="White" Height="70" Name="editEquateBtn" Style="{StaticResource NextbuttonTemplate}" Width="70" Click="EditEquate_Click"  />
             </Canvas>
             <!--计算-->
-            <Canvas Name="calculateCVS" Canvas.Left="200" Opacity="0">
-                <ScrollViewer Canvas.Left="10" Canvas.Top="10" Height="300" Width="210" CanContentScroll="True" xmlns:sys="clr-namespace:System;assembly=mscorlib" >
+            <!--计算_获取时间-->
+            <Canvas Name="calGetDateCVS" Canvas.Left="200" Opacity="0">
+                <Label Name="MonthTitle" Canvas.Left="25" Canvas.Top="90" Content="选择月份：" Foreground="White"/>
+                <ComboBox Name="YearCB" Canvas.Left="30" Canvas.Top="140" Width="90"/>
+                <ComboBox Name="MonthCB" Text="1" Canvas.Left="130" Canvas.Top="140" Width="70">
+                    <Label Content="1"/>
+                    <Label Content="2"/>
+                    <Label Content="3"/>
+                    <Label Content="4"/>
+                    <Label Content="5"/>
+                    <Label Content="6"/>
+                    <Label Content="7"/>
+                    <Label Content="8"/>
+                    <Label Content="9"/>
+                    <Label Content="10"/>
+                    <Label Content="11"/>
+                    <Label Content="12"/>
+                </ComboBox>
+                <Button Content="取消" FontSize="10" Canvas.Left="120" Canvas.Top="180" Foreground="White" Height="70" Name="CalCancelBtn" Style="{StaticResource LittlebuttonTemplate}" Width="70" Click="CalCancel_Click"  />
+                <Button Content="确定" FontSize="10" Canvas.Left="40" Canvas.Top="180" Foreground="White" Height="70" Name="CalCommitBtn" Style="{StaticResource LittlebuttonTemplate}" Width="70" Click="ToCalculate_Commit_Click"  />
+                <Label Name="MonthErrorLB" Canvas.Left="70" Canvas.Top="260" Content="月份格式不正确！" Foreground="White" Opacity="0"/>
+            </Canvas>
+            <!--计算_结果-->
+            <Canvas Name="calculateCVS"  Canvas.Left="200" Opacity="0">
+                <ScrollViewer Canvas.Left="10" Canvas.Top="10" Height="335" Width="200" CanContentScroll="True" xmlns:sys="clr-namespace:System;assembly=mscorlib" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                     <ScrollViewer.Resources>
                         <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>
                     </ScrollViewer.Resources>
-                    <StackPanel x:Name="BankListPart">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Width="160" x:Name="BankListPart">
+                        </StackPanel>
+                        <StackPanel Width="40" x:Name="BankResultPart">
+                        </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
-                <Label Name="waitlabel" Foreground="white" Canvas.Left="24" Canvas.Top="242" Content="..."></Label>
+                <Label Canvas.Left="205" Canvas.Top="160" Name="ShowErrorBtn" Content="错误" Foreground="White" RenderTransformOrigin="0.5,0.5" MouseEnter="ShowErrorBtn_MouseEnter">
+                    <Label.RenderTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="-90"/>
+                        </TransformGroup>
+                    </Label.RenderTransform>
+                </Label>
+                <ScrollViewer Canvas.Left="230" Canvas.Top="10" Height="335" Width="200" CanContentScroll="True" xmlns:sys="clr-namespace:System;assembly=mscorlib" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" >
+                    <ScrollViewer.Resources>
+                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>
+                        <sys:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarHeightKey}">10</sys:Double>
+                    </ScrollViewer.Resources>
+                    <TextBox x:Name="ErrorTxt" Text="xx" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}"/>
+                </ScrollViewer>
             </Canvas>
             <!--编辑算式-->
             <!--编辑算式__算式列表-->

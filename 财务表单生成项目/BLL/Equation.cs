@@ -14,12 +14,12 @@ namespace SheetGenerator.BLL
         /// <param name="bankIdentity">bank name and last 6bit of bankID</param>
         /// <param name="month">the selected month</param>
         /// <returns>if success</returns>
-        internal bool Calculate(string equate, string bankIdentity, string month)//bankIdentity--银行名称加上备付金账号后六位
+        internal bool Calculate(string equate, string bankIdentity, DateTime month)//bankIdentity--银行名称加上备付金账号后六位
         {
             try
             {
                 //format1:date(pre,now,next)_ifAddUp(yes,no)_SheetName_columnName%
-                string[] equatePart = equate.Split('%');
+                string[] equatePart = equate.Split('|');
 
                 List<string> paramList = new List<string>();
                 string paramResult = "";
@@ -71,15 +71,15 @@ namespace SheetGenerator.BLL
         /// <param name="bankIdentity">bank name and last 6bit of bankID</param>
         /// <param name="month">the selected month</param>
         /// <returns>List of the column value lists</returns>
-        private List<List<double>> GetExcelValue(List<string> paramList, string bankIdentity, string month)
+        private List<List<double>> GetExcelValue(List<string> paramList, string bankIdentity, DateTime month)
         {
             ExcelOperation eo = new ExcelOperation();
             List<List<double>> paramValueList = new List<List<double>>();
-            List<double> paramValue = new List<double>();
 
             for (int i = 0; i < paramList.Count; i++)
             {
-                string[] parts = paramList[i].Split('_');//表名_列名_是否累加(Y,N)_日期（pre,now,next）
+                List<double> paramValue = new List<double>();
+                string[] parts = paramList[i].Split('@');//表名_列名_是否累加(Y,N)_日期（pre,now,next）
                 eo.AboutValue(parts, bankIdentity, month, ref paramValue, "read");
                 paramValueList.Add(paramValue);
             }
@@ -93,12 +93,12 @@ namespace SheetGenerator.BLL
         /// <param name="month">the selected month</param>
         /// <param name="resultList">list of the equte's result</param>
         /// <returns>if success</returns>
-        private bool SetExcelValue(string paramResult, string bankIdentity, string month, List<double> resultList)
+        private bool SetExcelValue(string paramResult, string bankIdentity, DateTime month, List<double> resultList)
         {
             try
             {
                 ExcelOperation eo = new ExcelOperation();
-                string[] parts = paramResult.Split('_');//表名_列名_是否累加(Y,N)_日期（pre,now,next）
+                string[] parts = paramResult.Split('@');//表名@列名@是否累加(Y,N)@日期（pre,now,next）
                 eo.AboutValue(parts, bankIdentity, month, ref resultList, "write");
                 return true;
             }

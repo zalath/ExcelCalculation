@@ -19,16 +19,39 @@ namespace SheetGenerator.BLL
         /*
          * 获取所有的算式列表
          */
-        internal List<DataTable> GetEquation()
+        internal List<DataRow> GetEquation()
         {
-            List<DataTable> equations = new List<DataTable>();
-            foreach (XmlNode eNode in xe.ChildNodes)
+            List<DataRow> equations = new List<DataRow>();
+            foreach (XmlNode eNode in xe.SelectNodes("equation"))
             {
                 equations.Add(GetEquationdetail(eNode));
             }
+            for (int i = 0; i < equations.Count; i++)
+            {
+                for (int j = i + 1; j < equations.Count; i++)
+                {
+                    if ((int)equations[i]["序号"] > (int)equations[j]["序号"])
+                    {
+                        DataRow drTemp = equations[i];
+                        equations[i] = equations[j];
+                        equations[j] = drTemp;
+                    }
+                }
+            }
             return equations;
         }
-
+        private DataRow GetEquationdetail(XmlNode eNode)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("序号");
+            dt.Columns.Add("名称");
+            dt.Columns.Add("算式");
+            DataRow dr = dt.NewRow();
+            dr["序号"] = eNode.SelectSingleNode("order").InnerText;
+            dr["名称"] = eNode.SelectSingleNode("name").InnerText;
+            dr["算式"] = eNode.SelectSingleNode("equate").InnerText;
+            return dr;
+        }
         /*
          * 创建新的算式
          */
@@ -87,19 +110,6 @@ namespace SheetGenerator.BLL
             XmlNode xn = xd.CreateElement(name);
             xn.Value = value;
             return xn;
-        }
-        private DataTable GetEquationdetail(XmlNode eNode)
-        {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("序号");
-            dt.Columns.Add("名称");
-            dt.Columns.Add("算式");
-            DataRow dr = dt.NewRow();
-            dr["序号"] = eNode.SelectSingleNode("/order");
-            dr["名称"] = eNode.SelectSingleNode("/name");
-            dr["算式"] = eNode.SelectSingleNode("/equate");
-            dt.Rows.Add(dr);
-            return dt;
         }
     }
 }

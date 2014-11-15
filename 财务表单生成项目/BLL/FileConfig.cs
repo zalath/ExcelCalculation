@@ -63,13 +63,13 @@ namespace SheetGenerator.BLL
         internal List<string> GetColumnDetail(string filename, string columnName)
         {
             List<string> colParamDetail = new List<string>();
-            XmlNode xnFile = xe.SelectSingleNode("//[@filename='" + filename + "']");
-            XmlNode xnCol = xnFile.SelectSingleNode("//[@CHname='" + columnName + "']");
-            colParamDetail.Add(xnCol.SelectSingleNode("@name").Value);
-            colParamDetail.Add(xnCol.SelectSingleNode("@Vposision").Value);
-            colParamDetail.Add(xnCol.SelectSingleNode("@Hposision").Value);
-            colParamDetail.Add(xnFile.SelectSingleNode("@filename").Value);
-            colParamDetail.Add(xnFile.SelectSingleNode("@tabletype").Value);
+            XmlNodeList xnFile = xe.SelectNodes("FileList/*[@filename='" + filename + "']");
+            XmlNodeList xnCol = xnFile[0].SelectNodes("*[@CHname='" + columnName + "']");
+            colParamDetail.Add(xnCol[0].SelectSingleNode("@name").Value);
+            colParamDetail.Add(xnCol[0].SelectSingleNode("@Vposition").Value);
+            colParamDetail.Add(xnCol[0].SelectSingleNode("@Hposition").Value);
+            colParamDetail.Add(xnFile[0].SelectSingleNode("@filename").Value);
+            colParamDetail.Add(xnFile[0].SelectSingleNode("@tabletype").Value);
             return colParamDetail;
         }
 

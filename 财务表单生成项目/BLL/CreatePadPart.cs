@@ -9,10 +9,10 @@ namespace SheetGenerator.BLL
 {
     class CreatePadPart
     {
-        internal static Label CreateLabel(string name,string content)
+        internal static Label CreateLabel(string name,string content,Color color)
         {
             Label lb = new Label();
-            lb.Foreground = new SolidColorBrush(Colors.White);
+            lb.Foreground = new SolidColorBrush(color);
             lb.Name = name;
             lb.Content = content;
             return lb;

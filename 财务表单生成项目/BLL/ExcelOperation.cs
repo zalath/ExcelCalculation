@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Office.Interop.Excel;
+using System.IO;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace SheetGenerator.BLL
 {
@@ -17,14 +20,14 @@ namespace SheetGenerator.BLL
         /// <param name="paramValues">the values list to handle</param>
         /// <param name="type">read/write</param>
         /// <returns>bool:success or not</returns>
-        internal bool AboutValue(String[] parts, string bankIdentity, string month, ref List<double> paramValues, string type)
+        internal bool AboutValue(String[] parts, string bankIdentity, DateTime month, ref List<double> paramValues, string type)
         {
             try
             {
                 FileConfig fc = new FileConfig();
                 List<string> columnDetail = fc.GetColumnDetail(parts[0], parts[1]);//format:name,Vposision,Hposision,filename,tabletype
 
-                DateTime dtNow = Convert.ToDateTime(month);
+                DateTime dtNow = month;
                 DateTime dtPre = dtNow.AddMonths(-1);
                 DateTime dtNext = dtNow.AddMonths(1);
                 int daysCountNow = 0;
@@ -33,27 +36,36 @@ namespace SheetGenerator.BLL
                 string tNpartNow = GetMonth(dtNow, ref daysCountNow);
                 string tNpartPre = GetMonth(dtPre, ref daysCountPre);
                 string tNpartNext = GetMonth(dtNext, ref daysCountNext);
-                string fileNameNow = AppDomain.CurrentDomain.BaseDirectory + bankIdentity + '/' + tNpartNow + parts[0] + "[BJ0000004]北京钱袋宝支付技术有限公司_" + bankIdentity + ".xls";
-                string fileNamePre = AppDomain.CurrentDomain.BaseDirectory + bankIdentity + '/' + tNpartPre + parts[0] + "[BJ0000004]北京钱袋宝支付技术有限公司_" + bankIdentity + ".xls";
-                string fileNameNext = AppDomain.CurrentDomain.BaseDirectory + bankIdentity + '/' + tNpartNext + parts[0] + "[BJ0000004]北京钱袋宝支付技术有限公司_" + bankIdentity + ".xls";
+                string fileNameNow = AppDomain.CurrentDomain.BaseDirectory + "Excel/" + bankIdentity + '/' + tNpartNow + parts[0] + "[BJ0000004]北京钱袋宝支付技术有限公司_" + bankIdentity + ".xls";
+                string fileNamePre = AppDomain.CurrentDomain.BaseDirectory + "Excel/" + bankIdentity + '/' + tNpartPre + parts[0] + "[BJ0000004]北京钱袋宝支付技术有限公司_" + bankIdentity + ".xls";
+                string fileNameNext = AppDomain.CurrentDomain.BaseDirectory + "Excel/" + bankIdentity + '/' + tNpartNext + parts[0] + "[BJ0000004]北京钱袋宝支付技术有限公司_" + bankIdentity + ".xls";
+
+                string tempFileName = AppDomain.CurrentDomain.BaseDirectory + "Excel/模板/" + parts[0] + "[BJ0000004]北京钱袋宝支付技术有限公司_模板.xls";
+
                 if (parts[2] == "Y")
                 {
+                    TestFile(fileNameNow, tempFileName);
                     AboutValue(ref paramValues, daysCountNow, fileNameNow, columnDetail, "All_Days", type);
                 }
                 else
                 {
                     if (parts[3] == "pre")
                     {
-                        AboutValue(ref paramValues, daysCountPre, fileNamePre, columnDetail, "pre_last", type);
+                        TestFile(fileNameNow, tempFileName);
+                        TestFile(fileNamePre, tempFileName);
+                        AboutValue(ref paramValues, daysCountNow, fileNamePre, columnDetail, "pre_last", type);
                         AboutValue(ref paramValues, daysCountNow, fileNameNow, columnDetail, "pre_main", type);
                     }
                     else if (parts[3] == "next")
                     {
+                        TestFile(fileNameNow, tempFileName);
+                        TestFile(fileNameNext, tempFileName);
                         AboutValue(ref paramValues, daysCountNow, fileNameNow, columnDetail, "next_main", type);
-                        AboutValue(ref paramValues, daysCountNext, fileNameNext, columnDetail, "next_first", type);
+                        AboutValue(ref paramValues, daysCountNow, fileNameNext, columnDetail, "next_first", type);
                     }
                     else
                     {
+                        TestFile(fileNameNow, tempFileName);
                         AboutValue(ref paramValues, daysCountNow, fileNameNow, columnDetail, "now", type);
                     }
                 }
@@ -63,6 +75,18 @@ namespace SheetGenerator.BLL
             {
                 string errorMessage = e.Message;
                 return false;
+            }
+        }
+        /// <summary>
+        /// test if the file is exist,if not copy the temp one to the destiny place.
+        /// </summary>
+        /// <param name="fileName">destiny file</param>
+        /// <param name="tempFileName">template file</param>
+        private void TestFile(string fileName, string tempFileName)
+        {
+            if (!File.Exists(fileName))
+            {
+                File.Copy(tempFileName, fileName, true);
             }
         }
         /// <summary>
@@ -80,9 +104,18 @@ namespace SheetGenerator.BLL
 
             Application app = new Application();
             Workbooks wbks = app.Workbooks;
-            _Workbook _wbk = wbks.Add(fileName);
+            _Workbook _wbk = wbks.Open(fileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
             Sheets shs = _wbk.Sheets;
-            _Worksheet _wsh = (_Worksheet)shs.get_Item(0);
+            _Worksheet _wsh = (_Worksheet)shs.get_Item(1);//[0];//}
+            app.AlertBeforeOverwriting = false; //屏蔽掉系统跳出的Alert
+
+            if (paramValues.Count != daysCount)
+            {
+                for (int i = 0; i < daysCount; i++)
+                {
+                    paramValues.Add(0.0);
+                }
+            }
 
             if (whichDay == "pre_last")
             {
@@ -132,6 +165,22 @@ namespace SheetGenerator.BLL
                     AboutValue(ref paramValues, columnDetail, _wsh, 1, 1, type);
                 }
             }
+            if (type == "write")
+            {
+                _wbk.Save();
+            }
+            //app.AlertBeforeOverwriting = false; //屏蔽掉系统跳出的Alert
+            _wbk.Close();
+            wbks.Close();
+            app.Quit();
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(app);
+            app = null;
+
+            Process[] ExcelPList = Process.GetProcessesByName("Excel");
+            foreach (Process p in ExcelPList)
+            {
+                p.Kill();
+            }
         }
         /// <summary>
         /// get or set Excel values,step2
@@ -147,7 +196,7 @@ namespace SheetGenerator.BLL
             string vposition = columnDetail[1];
             string hposition = columnDetail[2];
             string tableType = columnDetail[4];
-            GetPosition(dayNo, ref vposition, ref hposition, tableType);
+            GetPosition(dayNo, ref vposition, ref hposition, tableType, type);
 
             double value = paramValues[valueNo - 1];
             AboutValue(ref value, vposition, hposition, _wsh, type);
@@ -165,11 +214,17 @@ namespace SheetGenerator.BLL
         {
             if (type == "write")
             {
-                _wsh.Cells[vposition, hposition] = value;
+                _wsh.get_Range(hposition + vposition, Missing.Value).Value2 = value;
+                //((Range)_wsh.Cells[hposition, vposition]).Value2 = value;
             }
             else if (type == "read")
             {
-                value = (double)_wsh.Cells[vposition, hposition];
+                if (_wsh.get_Range(hposition + vposition, Missing.Value) != null || _wsh.get_Range(hposition + vposition, Missing.Value).Value2 != "" || _wsh.get_Range(hposition + vposition, Missing.Value).Value2 != null)
+                {
+                    value = Convert.ToDouble(_wsh.get_Range(hposition + vposition, Missing.Value).Value2);
+                }
+                else
+                    value = 0;
             }
         }
         /// <summary>
@@ -179,17 +234,32 @@ namespace SheetGenerator.BLL
         /// <param name="Vposition">vertical position number</param>
         /// <param name="Hposition">horizon position number</param>
         /// <param name="tabletype">v/h</param>
-        private void GetPosition(int date, ref string Vposition, ref string Hposition, string tabletype)
+        private void GetPosition(int date, ref string Vposition, ref string Hposition, string tabletype, string type)
         {
             if (tabletype == "v")
-                Vposition += date - 1;
+            {
+                int v = Convert.ToInt32(Vposition);
+                v += date - 1;
+                Vposition = v.ToString();
+            }
             else
             {
                 string param = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
                 int pPos = param.IndexOf(Hposition);
-                Hposition = (pPos + date - 1).ToString();
+                Hposition = GetHposition(pPos + date - 1);
             }
         }
+
+        private string GetHposition(int index, int start = 65)
+        {
+            string str = "";
+            if ((index / 26) > 0)
+            {
+                str += GetHposition((index / 26) - 1);
+            }
+            return str + Convert.ToChar(index % 26 + start);
+        }
+
         /// <summary>
         /// get the amount of day of selected month, also form the part of tablename 
         /// </summary>
