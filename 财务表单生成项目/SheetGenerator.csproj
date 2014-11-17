@@ -71,6 +71,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BLL\Animation.cs" />
+    <Compile Include="BLL\CalPart.cs" />
     <Compile Include="BLL\CreatePadPart.cs" />
     <Compile Include="BLL\Equation.cs" />
     <Compile Include="BLL\EquationConfig.cs" />
@@ -146,6 +147,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="TodoList.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="IMG\AddBtn.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

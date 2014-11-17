@@ -27,18 +27,17 @@ namespace SheetGenerator.BLL
                 //将算式的部件拆分，分别进入参数数组，符号数组，结果参数。
                 for (int i = 0; i < equatePart.Length; i++)
                 {
-                    if (equatePart[i].Contains("+") || equatePart[i].Contains("-"))
+                    if (equatePart[i].Contains("+") || equatePart[i].Contains("-")||equatePart[i].Contains("="))
                     {
                         symbol.Add(equatePart[i]);
-                    }
-                    else if (equatePart[i].Contains("="))
-                    {
-                        paramResult = equatePart[i + 1];
-                        break;
                     }
                     else
                     {
                         paramList.Add(equatePart[i]);
+                    }
+                    if (equatePart[i].Contains("="))
+                    {
+                        paramResult = equatePart[i + 1];
                     }
                 }
                 //循环计算部分。每个参数的每个取值。
@@ -126,6 +125,10 @@ namespace SheetGenerator.BLL
                 else if (symbol == "-")
                 {
                     resultList.Add(val1[i] - val2[i]);
+                }
+                else if(symbol == "=")
+                {
+                    resultList.Add(val1[i]);
                 }
             }
             return resultList;

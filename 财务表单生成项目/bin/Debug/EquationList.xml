@@ -1,9 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Document>
+<Document> 
   <equation>
     <order>1</order>
-    <name>test</name>
-    <equate>表1_2_1@本期系统反应，本期出金@N@pre|+|表1_1@前期系统反应_本期入金@N@now|=|表1_3@C01@N@now</equate>
+    <name>表2_到_表3</name>
+    <equate>表1_2_1@本期系统反应，本期出金@N@now|=|表1_3@C01@N@now</equate>
+</equation>
+<equation>
+    <order>2</order>
+    <name>银行已入_系统未入</name>
+    <equate>表1_1@本期应收入金@N@now|=|表1_10@系统已增加余额，银行未增加余额_5日内金额@N@now</equate>
+</equation>
+<equation>
+    <order>3</order>
+    <name>银行已出_系统未出</name>
+    <equate>表1_2_1@本期业务应出金金额@N@now|-|表1_2_1@本期系统反应，本期出金@N@now|=|表1_10@系统已减少余额，银行未减少余额_5日内金额@N@now</equate>
   </equation>
   <equateFormat>
     <order>代表计算序号的数字</order>

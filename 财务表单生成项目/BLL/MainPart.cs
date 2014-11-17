@@ -16,72 +16,87 @@ using System.Data.SqlClient;
 using System.Threading;
 using System.Diagnostics;
 using System.Windows.Threading;
+using SheetGenerator.BLL;
 
-namespace SheetGenerator.BLL
+namespace SheetGenerator
 {
-    class MainPart
+    public partial class MainWindow : Window
     {
-        private MainWindow mainWindow;
-        private object padPart;
-        private Dispatcher dispatcher;
-        private DateTime month;
-        private List<string> bankList;
-        private object bankResultList;
-
-        public MainPart(MainWindow mainWindow, object padPart, Dispatcher dispatcher, DateTime month,List<string> bankList,object bankResultList)
+        private void GetEquateList(StackPanel u, StackPanel uedit)
         {
-            // TODO: Complete member initialization
-            this.mainWindow = mainWindow;
-            this.padPart = padPart;
-            this.dispatcher = dispatcher;
-            this.month = month;
-            this.bankList = bankList;
-            this.bankResultList = bankResultList;
-        }
-        /// <summary>
-        /// get bankIdentity list
-        /// get equate list
-        /// to each bankIdentity, calculate all the equtes.
-        /// </summary>
-        internal void Calculate()
-        {
-            StackPanel sp = (StackPanel)padPart;
-
-            EquationConfig eConfig = new EquationConfig();
-            List<DataRow> equateList = eConfig.GetEquation();
-
-            Equation eq = new Equation();
-            for (int i = 0; i < bankList.Count; i++)
+            EquationConfig ec = new EquationConfig();
+            List<DataRow> equates = ec.GetEquation();
+            for (int i = 0; i < equates.Count; i++)
             {
-                for (int j = 0; j < equateList.Count; j++)
-                {
-                    try
-                    {
-                        eq.Calculate(equateList[j]["算式"].ToString(), bankList[i], month);
-                        dispatcher.Invoke(DispatcherPriority.Normal,
-                                         (Action)(() => { (bankResultList as StackPanel).Children.Add(CreatePadPart.CreateLabel("", "ok", Colors.White)); }));
-                        //for (int k = 0; k < sp.Children.Count;k++ )
-                        //{
-                        //    if ((sp.Children[k] as Label).Name == bankList[i])
-                        //    {
-                        //        dispatcher.Invoke(DispatcherPriority.Normal,
-                        //                         (Action)(() => { (sp.Children[k] as Label).Content += "..ok"; }));
-                        //    }
-                        //}
-                    }
-                    catch (Exception error)
-                    {
-                    }
-                }
+                Label lb = CreatePadPart.CreateLabel(equates[i][1].ToString(), equates[i][0] + " : " + equates[i][1].ToString(), Colors.White);
+                Label lbedit = CreatePadPart.CreateLabel(equates[i][1].ToString(), "修改", Colors.White);
+                lbedit.Tag = equates[i][2].ToString();
+                lbedit.MouseLeftButtonDown += EquateEditDetailBtn_Click;
+                u.Children.Add(lb);
+                uedit.Children.Add(lbedit);
+            }
+        }
+        private void GetEquateParts(string equate)
+        {
+            string[] eParts = equate.Split('|');
+            for (int i = 0; i < eParts.Count(); i++)
+            {
+                CreateEquatePart(eParts[i]);
+            }
+
+
+           
+        }
+
+        private void CreateEquatePart(string equatePart)
+        {
+            if (equatePart.Contains("+") || equatePart.Contains("-") || equatePart.Contains("="))
+            {
+                EquatePartList.Children.Add(CreateButton("", equatePart, 30, SymbolBtnChange_Click, "symbol"));
+            }
+            else
+            {
+                string[] partlist = equatePart.Split('@');//tablename_columnname_ifaddup_iftoday
+
+                StackPanel spHead = new StackPanel();
+                spHead.Orientation = Orientation.Horizontal;
+                spHead.Width = 200;
+
+                Button btnTableName = CreateButton("", partlist[0], 120, EquatePartChange_Click,"part");
+                Button btnIfAddup = CreateButton("", partlist[2], 40, EquatePartChange_Click, "part");
+                Button btnIftoday = CreateButton("", partlist[3], 40, EquatePartChange_Click, "part");
+                spHead.Children.Add(btnTableName);
+                spHead.Children.Add(btnIfAddup);
+                spHead.Children.Add(btnIftoday);
+                EquatePartList.Children.Add(spHead);
+                Button btnColumnName = CreateButton("",partlist[1],200,EquatePartChange_Click,"part");
+                EquatePartList.Children.Add(btnColumnName);
+ 
             }
         }
 
-        internal void EditEquate()
+        private void EquatePartChange_Click(object sender, RoutedEventArgs e)
         {
-            /*
-             * get the equation list
-             * 
-             */
+        }
+        private void SymbolBtnChange_Click(object sender, RoutedEventArgs e)
+        {
+            //记录控件name并跳转到符号选择界面。
+        }
+
+        private Button CreateButton(string name, string content, double width, System.Windows.RoutedEventHandler method,string type)
+        {
+            Button btn = new Button();
+            if (type == "part")
+                btn.Style = this.FindResource("RecbuttonTemplate") as Style;
+            else if (type == "symbol")
+                btn.Style = this.FindResource("LittlebuttonTemplate") as Style;
+            btn.Width = width;
+            btn.Height = 30;
+            btn.Content = content;
+            btn.Foreground = new SolidColorBrush(Colors.White);
+            btn.Name = name;
+            btn.Click += method;
+            return btn;
         }
     }
 }

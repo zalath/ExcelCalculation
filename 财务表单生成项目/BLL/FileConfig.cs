@@ -50,7 +50,7 @@ namespace SheetGenerator.BLL
         internal List<string> GetFileColumns(string filename)
         {
             List<string> columns = new List<string>();
-            XmlNodeList xnl = xe.SelectSingleNode("//[@filename='"+filename+"']").ChildNodes;
+            XmlNodeList xnl = xe.SelectNodes("FileList/*[@filename='" + filename + "']")[0].ChildNodes;
             for (int i = 0; i < xnl.Count; i++)
             {
                 columns.Add(xnl[i].SelectSingleNode("@CHname").Value);

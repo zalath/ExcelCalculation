@@ -34,8 +34,8 @@
                     <Label Content="11"/>
                     <Label Content="12"/>
                 </ComboBox>
-                <Button Content="取消" FontSize="10" Canvas.Left="120" Canvas.Top="180" Foreground="White" Height="70" Name="CalCancelBtn" Style="{StaticResource LittlebuttonTemplate}" Width="70" Click="CalCancel_Click"  />
-                <Button Content="确定" FontSize="10" Canvas.Left="40" Canvas.Top="180" Foreground="White" Height="70" Name="CalCommitBtn" Style="{StaticResource LittlebuttonTemplate}" Width="70" Click="ToCalculate_Commit_Click"  />
+                <Button Content="取消" FontSize="10" Width="40" Height="40" Canvas.Left="140" Canvas.Top="180" Foreground="White" Name="CalCancelBtn" Style="{StaticResource LittlebuttonTemplate}" Click="CalCancel_Click"  />
+                <Button Content="确定" FontSize="10" Width="40" Height="40" Canvas.Left="60" Canvas.Top="180" Foreground="White" Name="CalCommitBtn" Style="{StaticResource LittlebuttonTemplate}" Click="ToCalculate_Commit_Click"  />
                 <Label Name="MonthErrorLB" Canvas.Left="70" Canvas.Top="260" Content="月份格式不正确！" Foreground="White" Opacity="0"/>
             </Canvas>
             <!--计算_结果-->
@@ -63,17 +63,37 @@
                         <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>
                         <sys:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarHeightKey}">10</sys:Double>
                     </ScrollViewer.Resources>
-                    <TextBox x:Name="ErrorTxt" Text="xx" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}"/>
+                    <TextBox x:Name="ErrorTxt" Text="" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}"/>
                 </ScrollViewer>
             </Canvas>
             <!--编辑算式-->
             <!--编辑算式__算式列表-->
             <Canvas Name="EditListCVS" Canvas.Left="200" Opacity="0">
-                <Button Content="√" Canvas.Left="65" Canvas.Top="80" Foreground="White" Height="70" Name="okBtn" Style="{StaticResource NextbuttonTemplate}" Width="70" Click="CloseButton_Click" />
+                <ScrollViewer Canvas.Left="10" Canvas.Top="20" Height="295" Width="215" CanContentScroll="True" xmlns:sys="clr-namespace:System;assembly=mscorlib" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer.Resources>
+                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>
+                    </ScrollViewer.Resources>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Width="180" x:Name="EquateListPart">
+                        </StackPanel>
+                        <StackPanel Width="35" x:Name="EquateEditListPart">
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+                <Button Name="AddEquateButton" Canvas.Top="320" Canvas.Left="100" Style="{StaticResource AddbtnTemplate}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="CloseButton_Click" Margin="0,0,0,10" />
             </Canvas>
             <!--编辑算式__详细-->
             <Canvas Name="EditDetailCVS" Canvas.Left="200" Opacity="0">
-                <Button Content="√" Canvas.Left="65" Canvas.Top="80" Foreground="White" Height="70" Name="oBtn" Style="{StaticResource NextbuttonTemplate}" Width="70" Click="CloseButton_Click" />
+                <Label Name="hideequateNameLB" Content="" Visibility="Hidden"></Label>
+                <Label Name="equateNameLB" Canvas.Left="40" Canvas.Top="10" Foreground="White" Content="算式的名字"></Label>
+                <ScrollViewer Canvas.Left="10" Canvas.Top="40" Height="300" Width="215" CanContentScroll="True" xmlns:sys="clr-namespace:System;assembly=mscorlib" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer.Resources>
+                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>
+                    </ScrollViewer.Resources>
+                    <StackPanel Name="EquatePartList">
+                       
+                    </StackPanel>
+                </ScrollViewer>
             </Canvas>
         </Canvas>
     </Grid>

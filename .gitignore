@@ -1,2 +1,2 @@
-.xls
-财务表单生成项目/bin/Debug/Excel/
+*.xls
+*.swp

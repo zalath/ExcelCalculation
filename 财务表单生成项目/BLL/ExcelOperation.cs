@@ -100,87 +100,92 @@ namespace SheetGenerator.BLL
         /// <param name="type">read/write</param>
         private void AboutValue(ref List<double> paramValues, int daysCount, string fileName, List<string> columnDetail, string whichDay, string type)
         {
-            string tableType = columnDetail[4];
+            try
+            {
+                string tableType = columnDetail[4];
 
-            Application app = new Application();
-            Workbooks wbks = app.Workbooks;
-            _Workbook _wbk = wbks.Open(fileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-            Sheets shs = _wbk.Sheets;
-            _Worksheet _wsh = (_Worksheet)shs.get_Item(1);//[0];//}
-            app.AlertBeforeOverwriting = false; //屏蔽掉系统跳出的Alert
+                Application app = new Application();
+                Workbooks wbks = app.Workbooks;
+                _Workbook _wbk = wbks.Open(fileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                Sheets shs = _wbk.Sheets;
+                _Worksheet _wsh = (_Worksheet)shs.get_Item(1);//[0];//}
+                app.AlertBeforeOverwriting = false; //屏蔽掉系统跳出的Alert
 
-            if (paramValues.Count != daysCount)
-            {
-                for (int i = 0; i < daysCount; i++)
+                if (paramValues.Count != daysCount)
                 {
-                    paramValues.Add(0.0);
+                    for (int i = 0; i < daysCount; i++)
+                    {
+                        paramValues.Add(0.0);
+                    }
                 }
-            }
 
-            if (whichDay == "pre_last")
-            {
-                AboutValue(ref paramValues, columnDetail, _wsh, daysCount, 1, type);
-            }
-            else if (whichDay == "pre_main")
-            {
-                for (int i = 1; i < daysCount; i++)
+                if (whichDay == "pre_last")
                 {
-                    AboutValue(ref paramValues, columnDetail, _wsh, i, i + 1, type);
+                    AboutValue(ref paramValues, columnDetail, _wsh, daysCount, 1, type);
                 }
-            }
-            else if (whichDay == "next_first")
-            {
-                AboutValue(ref paramValues, columnDetail, _wsh, 1, daysCount, type);
-            }
-            else if (whichDay == "next_main")
-            {
-                for (int i = 1; i <= daysCount; i++)
+                else if (whichDay == "pre_main")
                 {
-                    AboutValue(ref paramValues, columnDetail, _wsh, i + 1, i, type);
+                    for (int i = 1; i < daysCount; i++)
+                    {
+                        AboutValue(ref paramValues, columnDetail, _wsh, i, i + 1, type);
+                    }
                 }
-            }
-            else if (whichDay == "now")
-            {
-                for (int i = 1; i <= daysCount; i++)
+                else if (whichDay == "next_first")
                 {
-                    AboutValue(ref paramValues, columnDetail, _wsh, i, i, type);
+                    AboutValue(ref paramValues, columnDetail, _wsh, 1, daysCount, type);
                 }
-            }
-            else if (whichDay == "All_Days")
-            {
-                if (type == "read")
+                else if (whichDay == "next_main")
+                {
+                    for (int i = 1; i <= daysCount; i++)
+                    {
+                        AboutValue(ref paramValues, columnDetail, _wsh, i + 1, i, type);
+                    }
+                }
+                else if (whichDay == "now")
                 {
                     for (int i = 1; i <= daysCount; i++)
                     {
                         AboutValue(ref paramValues, columnDetail, _wsh, i, i, type);
                     }
-                    for (int i = 1; i < paramValues.Count; i++)
+                }
+                else if (whichDay == "All_Days")
+                {
+                    if (type == "read")
                     {
-                        paramValues[0] += paramValues[i];
-                        paramValues.Remove(paramValues[i]);
+                        for (int i = 1; i <= daysCount; i++)
+                        {
+                            AboutValue(ref paramValues, columnDetail, _wsh, i, i, type);
+                        }
+                        for (int i = 1; i < paramValues.Count; i++)
+                        {
+                            paramValues[0] += paramValues[i];
+                            paramValues.Remove(paramValues[i]);
+                        }
+                    }
+                    else if (type == "write")
+                    {
+                        AboutValue(ref paramValues, columnDetail, _wsh, 1, 1, type);
                     }
                 }
-                else if (type == "write")
+                if (type == "write")
                 {
-                    AboutValue(ref paramValues, columnDetail, _wsh, 1, 1, type);
+                    _wbk.Save();
+                }
+                //app.AlertBeforeOverwriting = false; //屏蔽掉系统跳出的Alert
+                _wbk.Close();
+                wbks.Close();
+                app.Quit();
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(app);
+                app = null;
+
+                Process[] ExcelPList = Process.GetProcessesByName("Excel");
+                foreach (Process p in ExcelPList)
+                {
+                    p.Kill();
                 }
             }
-            if (type == "write")
-            {
-                _wbk.Save();
-            }
-            //app.AlertBeforeOverwriting = false; //屏蔽掉系统跳出的Alert
-            _wbk.Close();
-            wbks.Close();
-            app.Quit();
-            System.Runtime.InteropServices.Marshal.ReleaseComObject(app);
-            app = null;
-
-            Process[] ExcelPList = Process.GetProcessesByName("Excel");
-            foreach (Process p in ExcelPList)
-            {
-                p.Kill();
-            }
+            catch (Exception)
+            { }
         }
         /// <summary>
         /// get or set Excel values,step2
@@ -193,14 +198,19 @@ namespace SheetGenerator.BLL
         /// <param name="type">read/write</param>
         private void AboutValue(ref List<double> paramValues, List<string> columnDetail, _Worksheet _wsh, int dayNo, int valueNo, string type)
         {
-            string vposition = columnDetail[1];
-            string hposition = columnDetail[2];
-            string tableType = columnDetail[4];
-            GetPosition(dayNo, ref vposition, ref hposition, tableType, type);
+            try
+            {
+                string vposition = columnDetail[1];
+                string hposition = columnDetail[2];
+                string tableType = columnDetail[4];
+                GetPosition(dayNo, ref vposition, ref hposition, tableType, type);
 
-            double value = paramValues[valueNo - 1];
-            AboutValue(ref value, vposition, hposition, _wsh, type);
-            paramValues[valueNo - 1] = value;
+                double value = paramValues[valueNo - 1];
+                AboutValue(ref value, vposition, hposition, _wsh, type);
+                paramValues[valueNo - 1] = value;
+            }
+            catch (Exception)
+            { }
         }
         /// <summary>
         /// get or set Excel values,step3
@@ -212,20 +222,25 @@ namespace SheetGenerator.BLL
         /// <param name="type">read/write</param>
         private void AboutValue(ref double value, string vposition, string hposition, _Worksheet _wsh, string type)
         {
-            if (type == "write")
+            try
             {
-                _wsh.get_Range(hposition + vposition, Missing.Value).Value2 = value;
-                //((Range)_wsh.Cells[hposition, vposition]).Value2 = value;
-            }
-            else if (type == "read")
-            {
-                if (_wsh.get_Range(hposition + vposition, Missing.Value) != null || _wsh.get_Range(hposition + vposition, Missing.Value).Value2 != "" || _wsh.get_Range(hposition + vposition, Missing.Value).Value2 != null)
+                if (type == "write")
                 {
-                    value = Convert.ToDouble(_wsh.get_Range(hposition + vposition, Missing.Value).Value2);
+                    _wsh.get_Range(hposition + vposition, Missing.Value).Value2 = value;
+                    //((Range)_wsh.Cells[hposition, vposition]).Value2 = value;
                 }
-                else
-                    value = 0;
+                else if (type == "read")
+                {
+                    if (_wsh.get_Range(hposition + vposition, Missing.Value) != null || _wsh.get_Range(hposition + vposition, Missing.Value).Value2 != "" || _wsh.get_Range(hposition + vposition, Missing.Value).Value2 != null)
+                    {
+                        value = Convert.ToDouble(_wsh.get_Range(hposition + vposition, Missing.Value).Value2);
+                    }
+                    else
+                        value = 0;
+                }
             }
+            catch (Exception)
+            { }
         }
         /// <summary>
         /// get the Position params in the Excel
@@ -236,18 +251,23 @@ namespace SheetGenerator.BLL
         /// <param name="tabletype">v/h</param>
         private void GetPosition(int date, ref string Vposition, ref string Hposition, string tabletype, string type)
         {
-            if (tabletype == "v")
+            try
             {
-                int v = Convert.ToInt32(Vposition);
-                v += date - 1;
-                Vposition = v.ToString();
+                if (tabletype == "v")
+                {
+                    int v = Convert.ToInt32(Vposition);
+                    v += date - 1;
+                    Vposition = v.ToString();
+                }
+                else
+                {
+                    string param = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                    int pPos = param.IndexOf(Hposition);
+                    Hposition = GetHposition(pPos + date - 1);
+                }
             }
-            else
-            {
-                string param = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-                int pPos = param.IndexOf(Hposition);
-                Hposition = GetHposition(pPos + date - 1);
-            }
+            catch (Exception)
+            { }
         }
 
         private string GetHposition(int index, int start = 65)

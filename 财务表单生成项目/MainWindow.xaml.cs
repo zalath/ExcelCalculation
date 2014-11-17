@@ -77,33 +77,11 @@ namespace SheetGenerator
             {
                 BankListPart.Children.Add(CreatePadPart.CreateLabel(bankList[i], (i + 1) + " : " + bankList[i], Colors.White));
             }
-            MainPart mp = new MainPart(this, BankListPart, this.Dispatcher,dt,bankList,BankResultPart);
+            CalPart mp = new CalPart(this, BankListPart, this.Dispatcher,dt,bankList,BankResultPart);
             Thread calculate = new Thread(new ThreadStart(mp.Calculate));
             calculate.SetApartmentState(ApartmentState.STA);
             calculate.Start();
             anime_CVSchange(calGetDateCVS, calculateCVS);
-        }
-
-        //编辑算式部分
-        private void EditEquate_Click(object sender, RoutedEventArgs e)
-        {
-            anime_CVSchange(stCVS, calculateCVS);
-            Thread waiting = new Thread(new ThreadStart(wait));
-            waiting.Start();
-        }
-        private void wait()
-        {
-            string wrd = ".";
-            for (int i = 0; ; i++)
-            {
-                if (i % 6 == 0)
-                {
-                    wrd = "";
-                }
-                this.Dispatcher.BeginInvoke((ThreadStart)delegate() { });
-                Thread.Sleep(500);
-                wrd += ".";
-            }
         }
 
         private void ShowErrorBtn_MouseEnter(object sender, MouseEventArgs e)
@@ -119,6 +97,19 @@ namespace SheetGenerator
             ShowErrorBtn.Content = "错误";
             ShowErrorBtn.MouseEnter -= ShowErrorBtn_MouseEnter_Back;
             ShowErrorBtn.MouseEnter += ShowErrorBtn_MouseEnter;
+        }
+        //编辑算式部分
+        private void EditEquate_Click(object sender, RoutedEventArgs e)
+        {
+            GetEquateList(EquateListPart,EquateEditListPart);
+            anime_CVSchange(stCVS, EditListCVS);
+        }
+
+        private void EquateEditDetailBtn_Click(object sender, RoutedEventArgs e)
+        {
+            equateNameLB.Content = (sender as Label).Name;
+            GetEquateParts((sender as Label).Tag.ToString());
+            anime_CVSchange(EditListCVS, EditDetailCVS);
         }
     }
 }

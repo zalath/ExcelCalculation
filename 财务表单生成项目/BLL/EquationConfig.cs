@@ -28,9 +28,9 @@ namespace SheetGenerator.BLL
             }
             for (int i = 0; i < equations.Count; i++)
             {
-                for (int j = i + 1; j < equations.Count; i++)
+                for (int j = i + 1; j < equations.Count; j++)
                 {
-                    if ((int)equations[i]["序号"] > (int)equations[j]["序号"])
+                    if (Convert.ToInt32(equations[i][0]) > Convert.ToInt32(equations[j][0]))
                     {
                         DataRow drTemp = equations[i];
                         equations[i] = equations[j];
@@ -78,8 +78,8 @@ namespace SheetGenerator.BLL
         {
             try
             {
-                XmlNode xn = xe.SelectSingleNode("/equation/["+nodeName+"="+oldValue+"]");
-                xn.SelectSingleNode(nodeName).InnerText = newValue;
+                XmlNodeList xn = xe.SelectNodes("equation/*["+nodeName+"="+oldValue+"]");
+                xn[0].SelectSingleNode(nodeName).InnerText = newValue;
                 xd.Save(AppDomain.CurrentDomain.BaseDirectory + "EquationList.xml");
                 return true;
             }
@@ -95,7 +95,7 @@ namespace SheetGenerator.BLL
         {
             try
             {
-                XmlNode xn = xe.SelectSingleNode("/equation/[name=" + name + "]");
+                XmlNode xn = xe.SelectSingleNode("equation/*[name=" + name + "]");
                 xe.RemoveChild(xn);
                 xd.Save(AppDomain.CurrentDomain.BaseDirectory + "EquationList.xml");
                 return true;

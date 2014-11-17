@@ -20,15 +20,56 @@
                             </TextBlock>
                         </Border>
                     </Grid>
-                    <!--
-                    <Border x:Name="back" Opacity="0.7" CornerRadius="2" Cursor="Hand">
-                        <Rectangle Width="25" Height="25">
-                            <Rectangle.Fill>
-                                <ImageBrush ImageSource="IMG/CloseBtn.gif"/>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                    </Border>
-                    -->
+                    <!--触发器-->
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation To="1" Duration="0:0:0.1" Storyboard.TargetName="back" Storyboard.TargetProperty="Opacity" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation To="0.7" Duration="0:0:0.1" Storyboard.TargetName="back" Storyboard.TargetProperty="Opacity" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger Property="Button.IsPressed" Value="True">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.95" ScaleY="0.95"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="RenderTransformOrigin" Value=".5,.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="AddbtnTemplate" TargetType="Button" >
+        <!--修改模板属性-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <!--样式-->
+                    <Grid>
+                        <Border x:Name="back" Opacity="0.7" CornerRadius="2" Cursor="Hand">
+                            <Ellipse Width="30" Height="30" Stroke="White">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="IMG/AddBtn.gif"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </Border>
+                        <Border>
+                            <TextBlock x:Name="content" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding  Content}">
+                            </TextBlock>
+                        </Border>
+                    </Grid>
                     <!--触发器-->
                     <ControlTemplate.Triggers>
                         <Trigger Property="Button.IsMouseOver" Value="True">
@@ -120,11 +161,63 @@
                     <!--样式-->
                     <Grid>
                         <Border x:Name="back" Opacity="0.7" CornerRadius="2" Cursor="Hand">
-                            <Ellipse Width="40" Height="40" Stroke="White">
+                            <Ellipse Stroke="White">
                                 <Ellipse.Fill>
                                     <SolidColorBrush x:Name="scBrush" Color="#FF494949"/>
                                 </Ellipse.Fill>
                             </Ellipse>
+                        </Border>
+                        <Border>
+                            <TextBlock x:Name="content" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding  Content}">
+                            </TextBlock>
+                        </Border>
+                    </Grid>
+                    <!--触发器-->
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation To="1" Duration="0:0:0.1" Storyboard.TargetName="back" Storyboard.TargetProperty="Opacity" />
+                                        <ColorAnimation To="#FF949494" Duration="0:0:0.1" Storyboard.TargetName="scBrush" Storyboard.TargetProperty="(SolidColorBrush.Color)" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation To="0.7" Duration="0:0:0.1" Storyboard.TargetName="back" Storyboard.TargetProperty="Opacity" />
+                                        <ColorAnimation To="#FF494949" Duration="0:0:0.1" Storyboard.TargetName="scBrush" Storyboard.TargetProperty="(SolidColorBrush.Color)" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger Property="Button.IsPressed" Value="True">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX=".9" ScaleY=".9"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="RenderTransformOrigin" Value=".5,.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="RecbuttonTemplate" TargetType="Button" >
+        <!--修改模板属性-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <!--样式-->
+                    <Grid>
+                        <Border x:Name="back" Opacity="0.7" CornerRadius="2" Cursor="Hand">
+                            <Rectangle Stroke="White">
+                                <Rectangle.Fill>
+                                    <SolidColorBrush x:Name="scBrush" Color="#FF494949"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
                         </Border>
                         <Border>
                             <TextBlock x:Name="content" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding  Content}">
