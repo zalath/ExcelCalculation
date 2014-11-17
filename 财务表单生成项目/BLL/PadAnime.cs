@@ -23,45 +23,73 @@ namespace SheetGenerator
 {
     public partial class MainWindow : Window
     {
-        private void anime_CVSchange(UIElement u1,UIElement u2)
+        #region 全局方法
+        private void Anime_CVSchange(UIElement u1, UIElement u2)
         {
             Storyboard sb = new Storyboard();
-            Animation.anime_Move_middle(ref sb, u1, 0, -200, 0, 0);
-            Animation.anime_Move_middle(ref sb, u2, 100, 0, 1, 0);
+            Animation.Anime_Move_Middle(ref sb, u1, 0, -200, 0, 0);
+            Animation.Anime_Move_Middle(ref sb, u2, 100, 0, 1, 0);
             sb.Begin();
         }
-        private void anime_CVSchangeBack(UIElement u1, UIElement u2)
+        private void Anime_CVSchangeBack(UIElement u1, UIElement u2)
         {
             Storyboard sb = new Storyboard();
-            Animation.anime_Move_middle(ref sb, u1, 0, 200, 0, 0);
-            Animation.anime_Move_middle(ref sb, u2, 100, 0, 1, 0);
+            Animation.Anime_Move_Middle(ref sb, u1, 0, 200, 0, 0);
+            Animation.Anime_Move_Middle(ref sb, u2, 100, 0, 1, 0);
             sb.Begin();
         }
-        private void anime_ErrorTip(UIElement uError)
+        private void Anime_ErrorTip(UIElement uError)
         {
             uError.Opacity = 1;
             Storyboard sb = new Storyboard();
-            Animation.anime_Move_middle(ref sb, uError, 0, 50, 70, 1, 260);
-            Animation.anime_Move_middle(ref sb, uError, 50, 50, 80, 1, 260);
-            Animation.anime_Move_middle(ref sb, uError, 100, 50, 60, 1, 260);
-            Animation.anime_Move_middle(ref sb, uError, 150, 50, 80, 1, 260);
-            Animation.anime_Move_middle(ref sb, uError, 200, 50, 60, 1, 260);
-            Animation.anime_Move_middle(ref sb, uError, 250, 50, 80, 1, 260);
-            Animation.anime_Move_middle(ref sb, uError, 300, 50, 60, 1, 260);
-            Animation.anime_Move_middle(ref sb, uError, 350, 50, 70, 1, 260);
+            Animation.Anime_Move_Middle(ref sb, uError, 0, 50, 70, 1, 260);
+            Animation.Anime_Move_Middle(ref sb, uError, 50, 50, 80, 1, 260);
+            Animation.Anime_Move_Middle(ref sb, uError, 100, 50, 60, 1, 260);
+            Animation.Anime_Move_Middle(ref sb, uError, 150, 50, 80, 1, 260);
+            Animation.Anime_Move_Middle(ref sb, uError, 200, 50, 60, 1, 260);
+            Animation.Anime_Move_Middle(ref sb, uError, 250, 50, 80, 1, 260);
+            Animation.Anime_Move_Middle(ref sb, uError, 300, 50, 60, 1, 260);
+            Animation.Anime_Move_Middle(ref sb, uError, 350, 50, 70, 1, 260);
             sb.Begin();
         }
-        private void anime_VCS_aside(UIElement u)
+        private void Anime_VCS_aside(UIElement u)
         {
             Storyboard sb = new Storyboard();
-            Animation.anime_Move_middle(ref sb, u, 0, -205, 1, 0);
+            Animation.Anime_Move_Middle(ref sb, u, 0, -205, 1, 0);
             sb.Begin();
         }
-        private void anime_VCS_aside_Back(UIElement u)
+        private void Anime_VCS_aside_Back(UIElement u)
         {
             Storyboard sb = new Storyboard();
-            Animation.anime_Move_middle(ref sb, u, 0, 0, 1, 0);
+            Animation.Anime_Move_Middle(ref sb, u, 0, 0, 1, 0);
             sb.Begin();
         }
+        private void Anime_Window_Resize(MainWindow mainWindow)
+        {
+            Storyboard sb = new Storyboard();
+            Animation.Anime_Resize_Middle(ref sb, mainWindow, 0, 400, 350);
+            sb.Begin();
+        }
+        private void Anime_Window_Resize_Back(MainWindow mainWindow)
+        {
+            Storyboard sb = new Storyboard();
+            Animation.Anime_Resize_Middle(ref sb, mainWindow, 0, 400, 230);
+            sb.Begin();
+        }
+        private void Anime_BackBtn_Show(Button BackButton)
+        {
+            BackButton.IsEnabled = true;
+            Storyboard sb = new Storyboard();
+            Animation.Anime_Move_Middle(ref sb, BackButton, 0, 20, 1, 10);
+            sb.Begin();
+        }
+
+        private void Anime_BackBtn_Hide(Button BackButton)
+        {
+            Storyboard sb = new Storyboard();
+            Animation.Anime_Move_Middle(ref sb, BackButton, 0, 20, 0, 10);
+            sb.Begin();
+        }
+        #endregion
     }
 }

@@ -60,7 +60,7 @@ namespace SheetGenerator.BLL
                     {
                         eq.Calculate(equateList[j]["算式"].ToString(), bankList[i], month);
                         dispatcher.Invoke(DispatcherPriority.Normal,
-                                         (Action)(() => { (bankResultList as StackPanel).Children.Add(CreatePadPart.CreateLabel("", "ok", Colors.White)); }));
+                                         (Action)(() => { (bankResultList as StackPanel).Children.Add(MainWindow.CreateLabel("", "ok", Colors.White)); }));
                     }
                     catch (Exception)
                     {

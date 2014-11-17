@@ -22,18 +22,35 @@ namespace SheetGenerator
 {
     public partial class MainWindow : Window
     {
-        private void GetEquateList(StackPanel u, StackPanel uedit)
+        #region 修改算式部分
+        private void GetEquateList(StackPanel u, StackPanel uedit, StackPanel udelete)
         {
             EquationConfig ec = new EquationConfig();
             List<DataRow> equates = ec.GetEquation();
             for (int i = 0; i < equates.Count; i++)
             {
-                Label lb = CreatePadPart.CreateLabel(equates[i][1].ToString(), equates[i][0] + " : " + equates[i][1].ToString(), Colors.White);
-                Label lbedit = CreatePadPart.CreateLabel(equates[i][1].ToString(), "修改", Colors.White);
-                lbedit.Tag = equates[i][2].ToString();
-                lbedit.MouseLeftButtonDown += EquateEditDetailBtn_Click;
+                Label lbEmpty = CreateLabel("E" + i, "", Colors.White, 10);
+                Label lbEmptyEdit = CreateLabel("Ee" + i, "", Colors.White, 10);
+                Label lbEmptyDelete = CreateLabel("Ed" + i, "", Colors.White, 10);
+
+                Label lb = CreateLabel(equates[i][1].ToString(), equates[i][0] + " : " + equates[i][1].ToString(), Colors.White);
+
+                Button btnEdit = CreateButton(equates[i][1].ToString(), "修改", 30, EquateEditDetailBtn_Click, "part");
+                btnEdit.Height = 25;
+                btnEdit.Tag = equates[i][2].ToString();
+
+                Button btnDelete = CreateButton(equates[i][1].ToString(), "删除", 30, EquateEditDetailBtn_Click, "part");
+                btnDelete.Height = 25;
+                btnDelete.Tag = equates[i][2].ToString();
+                
                 u.Children.Add(lb);
-                uedit.Children.Add(lbedit);
+                u.Children.Add(lbEmpty);
+                
+                uedit.Children.Add(btnEdit);
+                uedit.Children.Add(lbEmptyEdit);
+
+                udelete.Children.Add(btnDelete);
+                udelete.Children.Add(lbEmptyDelete);
             }
         }
         private void GetEquateParts(string equate)
@@ -43,9 +60,6 @@ namespace SheetGenerator
             {
                 CreateEquatePart(eParts[i]);
             }
-
-
-           
         }
 
         private void CreateEquatePart(string equatePart)
@@ -60,18 +74,32 @@ namespace SheetGenerator
 
                 StackPanel spHead = new StackPanel();
                 spHead.Orientation = Orientation.Horizontal;
-                spHead.Width = 200;
+                spHead.Width = 240;
 
-                Button btnTableName = CreateButton("", partlist[0], 120, EquatePartChange_Click,"part");
-                Button btnIfAddup = CreateButton("", partlist[2], 40, EquatePartChange_Click, "part");
-                Button btnIftoday = CreateButton("", partlist[3], 40, EquatePartChange_Click, "part");
+                Button btnTableName = CreateButton("", partlist[0], 160, EquatePartChange_Click, "part");
+
+                string addup = "";
+                if (partlist[2] == "Y")
+                    addup = "累加";
+                else
+                    addup = "每日";
+                string Iftoday = "";
+                if (partlist[3] == "now")
+                    Iftoday = "当日";
+                else if (partlist[3] == "pre")
+                    Iftoday = "前日";
+                else if (partlist[3] == "next")
+                    Iftoday = "后日";
+
+                Button btnIfAddup = CreateButton("", addup, 40, EquatePartChange_Click, "part");
+                Button btnIftoday = CreateButton("", Iftoday, 40, EquatePartChange_Click, "part");
                 spHead.Children.Add(btnTableName);
                 spHead.Children.Add(btnIfAddup);
                 spHead.Children.Add(btnIftoday);
                 EquatePartList.Children.Add(spHead);
-                Button btnColumnName = CreateButton("",partlist[1],200,EquatePartChange_Click,"part");
+
+                Button btnColumnName = CreateButton("", partlist[1], 240, EquatePartChange_Click, "part");
                 EquatePartList.Children.Add(btnColumnName);
- 
             }
         }
 
@@ -82,8 +110,10 @@ namespace SheetGenerator
         {
             //记录控件name并跳转到符号选择界面。
         }
+        #endregion
 
-        private Button CreateButton(string name, string content, double width, System.Windows.RoutedEventHandler method,string type)
+        #region 通用创建控件部分
+        private Button CreateButton(string name, string content, double width, System.Windows.RoutedEventHandler method, string type)
         {
             Button btn = new Button();
             if (type == "part")
@@ -98,5 +128,15 @@ namespace SheetGenerator
             btn.Click += method;
             return btn;
         }
+        internal static Label CreateLabel(string name, string content, Color color, double height = 25)
+        {
+            Label lb = new Label();
+            lb.Foreground = new SolidColorBrush(color);
+            lb.Name = name;
+            lb.Content = content;
+            lb.Height = height;
+            return lb;
+        }
+        #endregion
     }
 }
