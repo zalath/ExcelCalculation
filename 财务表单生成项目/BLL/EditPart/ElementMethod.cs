@@ -60,6 +60,7 @@ namespace SheetGenerator
             EquateElementList[no] = null;
             EquateElementList[no + 1] = null;
         }
+        
         /// <summary>
         /// 删除算式某一参数部分
         /// </summary>
@@ -112,7 +113,7 @@ namespace SheetGenerator
                         List<string> columnList = fc.GetFileColumns(((sender as Button).Tag as Button).Content.ToString());
                         for (int i = 0; i < columnList.Count; i++)
                         {
-                            Button btn = CreateButton("Column" + i, columnList[i], 200, BtnContentChanged_Click, "part");
+                            Button btn = CreateButton("Column" + i, columnList[i], 300, BtnContentChanged_Click, "part");
                             PartNameList.Children.Add(btn);
                         }
                     }
@@ -147,17 +148,17 @@ namespace SheetGenerator
         }
 
         /// <summary>
-        /// 选择运算符号后，修改算式中的值
+        /// 选择算式组件的内容后，修改算式中的相应组件的内容
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void BtnContentChanged_Click(object sender, RoutedEventArgs e)
         {
-            Anime_Window_Resize(this);
+            equateNameLB.Visibility = Visibility.Visible;
+            equateWarnLB.Visibility = Visibility.Collapsed;
             (ElementToChange as Button).Content = (sender as Button).Content;
             Anime_CVSchangeBack(EditDetailCVS, currentCVS);
             currentCVS = EditDetailCVS;
-            //记录控件name并跳转到符号选择界面。
         }
     }
 }

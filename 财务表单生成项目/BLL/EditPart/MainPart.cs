@@ -39,15 +39,15 @@ namespace SheetGenerator
                 Label lbEmptyEdit = CreateLabel("Ee" + i, "", Colors.White, 10);
                 Label lbEmptyDelete = CreateLabel("Ed" + i, "", Colors.White, 10);
 
-                Label lb = CreateLabel(equates[i][1].ToString(), equates[i][0] + " : " + equates[i][1].ToString(), Colors.White);
+                Label lb = CreateLabel(equates[i]["名称"].ToString(), equates[i]["序号"] + " : " + equates[i]["名称"].ToString(), Colors.White);
 
-                Button btnEdit = CreateButton(equates[i][1].ToString(), "修改", 30, EquateEditDetailBtn_Click, "part");
+                Button btnEdit = CreateButton(equates[i]["名称"].ToString() + "E" + equates[i]["uni"].ToString(), "修改", 30, EquateEditDetailBtn_Click, "part");
                 btnEdit.Height = 25;
-                btnEdit.Tag = equates[i][2].ToString();
+                btnEdit.Tag = equates[i]["算式"].ToString();
 
-                Button btnDelete = CreateButton(equates[i][1].ToString(), "删除", 30, EquateEditDetailBtn_Click, "part");
+                Button btnDelete = CreateButton(equates[i]["名称"].ToString() + "D" + equates[i]["uni"].ToString(), "删除", 30, EquateDeleteDetailBtn_Click, "part");
                 btnDelete.Height = 25;
-                btnDelete.Tag = equates[i][2].ToString();
+                btnDelete.Tag = equates[i]["算式"].ToString();
 
                 u.Children.Add(lb);
                 u.Children.Add(lbEmpty);
@@ -59,6 +59,7 @@ namespace SheetGenerator
                 udelete.Children.Add(lbEmptyDelete);
             }
         }
+
         #endregion
 
         #region 修改算式的详细页
@@ -78,6 +79,7 @@ namespace SheetGenerator
 
         private List<UIElement> EquateElementList = new List<UIElement>();
         private UIElement ElementToChange = new UIElement();
+
         /// <summary>
         /// 按照算式的部件，生成相应的部件控件
         /// </summary>
@@ -215,6 +217,48 @@ namespace SheetGenerator
             equate = equate.Replace("@|", "|");
             return equate.Substring(0, equate.Length - 1);
         }
+
+        /// <summary>
+        /// 检测生成的算式是否正确
+        /// </summary>
+        /// <param name="equate"></param>
+        /// <returns></returns>
+        private bool Check_Reformed_Equate(string equate)
+        {
+            if (equate.Contains("**") || equate.Contains("?"))
+            {
+                //not all the red element was selected.
+                Show_Equate_Change_Error("有未选择的红色部分!");
+            }
+            else if (equate.Substring(equate.LastIndexOf("|") - 1, 1) != "=")
+            {
+                //the last symbol is not "=".
+                Show_Equate_Change_Error("请改正等号位置!");
+            }
+            else if (equate.Contains("now@") || equate.Contains("pre@") || equate.Contains("next@"))
+            {
+                Show_Equate_Change_Error("算式缺少某个符号");
+            }
+            else if (equate.Contains("||"))
+            {
+                Show_Equate_Change_Error("算式缺少某个参数");
+            }
+            else if(equate.IndexOf("=") != equate.LastIndexOf("="))
+            {
+                Show_Equate_Change_Error("算式中有多个等号");
+            }
+            else
+            {
+                return true;
+            }
+            return false;
+        }
+        private void ShowIfSuccess(string msg)
+        {
+            ResultMsgLB.Content = msg;
+            anime_Show_ResultMsg();
+        }
+
         #endregion
 
     }

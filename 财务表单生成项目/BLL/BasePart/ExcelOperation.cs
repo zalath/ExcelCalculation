@@ -187,6 +187,7 @@ namespace SheetGenerator.BLL
             catch (Exception)
             { }
         }
+       
         /// <summary>
         /// get or set Excel values,step2
         /// </summary>
@@ -212,6 +213,7 @@ namespace SheetGenerator.BLL
             catch (Exception)
             { }
         }
+        
         /// <summary>
         /// get or set Excel values,step3
         /// </summary>
@@ -242,6 +244,7 @@ namespace SheetGenerator.BLL
             catch (Exception)
             { }
         }
+        
         /// <summary>
         /// get the Position params in the Excel
         /// </summary>

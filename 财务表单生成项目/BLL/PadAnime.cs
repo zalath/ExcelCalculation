@@ -38,18 +38,18 @@ namespace SheetGenerator
             Animation.Anime_Move_Middle(ref sb, to, 0, 400, 0, 0);
             sb.Begin();
         }
-        private void Anime_ErrorTip(UIElement uError)
+        private void Anime_ErrorTip(UIElement uError, double left,double height)
         {
             uError.Opacity = 1;
             Storyboard sb = new Storyboard();
-            Animation.Anime_Move_Middle(ref sb, uError, 0, 50, 70, 1, 260);
-            Animation.Anime_Move_Middle(ref sb, uError, 50, 50, 80, 1, 260);
-            Animation.Anime_Move_Middle(ref sb, uError, 100, 50, 60, 1, 260);
-            Animation.Anime_Move_Middle(ref sb, uError, 150, 50, 80, 1, 260);
-            Animation.Anime_Move_Middle(ref sb, uError, 200, 50, 60, 1, 260);
-            Animation.Anime_Move_Middle(ref sb, uError, 250, 50, 80, 1, 260);
-            Animation.Anime_Move_Middle(ref sb, uError, 300, 50, 60, 1, 260);
-            Animation.Anime_Move_Middle(ref sb, uError, 350, 50, 70, 1, 260);
+            Animation.Anime_Move_Middle(ref sb, uError, 0, left, 1, height, 25);
+            Animation.Anime_Move_Middle(ref sb, uError, 50, left - 10, 1, height, 25);
+            Animation.Anime_Move_Middle(ref sb, uError, 100, left + 10, 1, height, 25);
+            Animation.Anime_Move_Middle(ref sb, uError, 150, left - 10, 1, height, 25);
+            Animation.Anime_Move_Middle(ref sb, uError, 200, left + 10, 1, height, 25);
+            Animation.Anime_Move_Middle(ref sb, uError, 250, left - 10, 1, height, 25);
+            Animation.Anime_Move_Middle(ref sb, uError, 300, left + 10, 1, height, 25);
+            Animation.Anime_Move_Middle(ref sb, uError, 350, left, 1, height, 25);
             sb.Begin();
         }
         private void Anime_VCS_aside(UIElement u)
@@ -67,13 +67,13 @@ namespace SheetGenerator
         private void Anime_Window_Resize(MainWindow mainWindow)
         {
             Storyboard sb = new Storyboard();
-            Animation.Anime_Resize_Middle(ref sb, mainWindow, 0, 400, 350);
+            Animation.Anime_Resize_Middle(ref sb, mainWindow, 0, 450, 380);
             sb.Begin();
         }
         private void Anime_Window_Resize_Back(MainWindow mainWindow)
         {
             Storyboard sb = new Storyboard();
-            Animation.Anime_Resize_Middle(ref sb, mainWindow, 0, 400, 230);
+            Animation.Anime_Resize_Middle(ref sb, mainWindow, 0, 450, 260);
             sb.Begin();
         }
         private void Anime_BackBtn_Show(Button BackButton)
@@ -88,6 +88,14 @@ namespace SheetGenerator
         {
             Storyboard sb = new Storyboard();
             Animation.Anime_Move_Middle(ref sb, BackButton, 0, 20, 0, 10);
+            sb.Begin();
+        }
+
+        private void anime_Show_ResultMsg()
+        {
+            Storyboard sb = new Storyboard();
+            Animation.Anime_Move_Middle(ref sb, ResultMsgCVS, 0, 0, 1, 150, 200);
+            Animation.Anime_Move_Middle(ref sb, ResultMsgCVS, 1500, -400, 0, 150, 200);
             sb.Begin();
         }
         #endregion

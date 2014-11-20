@@ -22,7 +22,7 @@ namespace SheetGenerator
 
             if (element.GetType().ToString() == "SheetGenerator.MainWindow")
                 Storyboard.SetTarget(das, (element as MainWindow));
-            else if (element.GetType().ToString() == "System.Windows.Controls.Canvas" || element.GetType().ToString() == "System.Windows.Controls.Button")
+            else if (element.GetType().ToString().Contains("System.Windows.Controls"))
                 Storyboard.SetTarget(das, (element as UIElement));
 
             Storyboard.SetTargetProperty(das, new PropertyPath(propertyName));

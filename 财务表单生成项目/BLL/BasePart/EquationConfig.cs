@@ -16,9 +16,11 @@ namespace SheetGenerator.BLL
             xd.Load(AppDomain.CurrentDomain.BaseDirectory + "EquationList.xml");
             xe = xd.DocumentElement;
         }
-        /*
-         * 获取所有的算式列表
-         */
+
+        /// <summary>
+        /// 获得所有算式列表
+        /// </summary>
+        /// <returns></returns>
         internal List<DataRow> GetEquation()
         {
             List<DataRow> equations = new List<DataRow>();
@@ -40,26 +42,40 @@ namespace SheetGenerator.BLL
             }
             return equations;
         }
+
+        /// <summary>
+        /// 获得指定算式的细节
+        /// </summary>
+        /// <param name="eNode"></param>
+        /// <returns></returns>
         private DataRow GetEquationdetail(XmlNode eNode)
         {
             DataTable dt = new DataTable();
+            dt.Columns.Add("uni");
             dt.Columns.Add("序号");
             dt.Columns.Add("名称");
             dt.Columns.Add("算式");
             DataRow dr = dt.NewRow();
+            dr["uni"] = eNode.SelectSingleNode("uni").InnerText;
             dr["序号"] = eNode.SelectSingleNode("order").InnerText;
             dr["名称"] = eNode.SelectSingleNode("name").InnerText;
             dr["算式"] = eNode.SelectSingleNode("equate").InnerText;
             return dr;
         }
-        /*
-         * 创建新的算式
-         */
+
+        /// <summary>
+        /// 创建新的算式
+        /// </summary>
+        /// <param name="order"></param>
+        /// <param name="name"></param>
+        /// <param name="equate"></param>
+        /// <returns></returns>
         internal bool CreateEquation(string order, string name, string equate)
         {
             try
             {
                 XmlNode xn = xd.CreateElement("equation");
+                xn.AppendChild(CreateNode("uni", xd.ChildNodes.Count.ToString()));
                 xn.AppendChild(CreateNode("order", order));
                 xn.AppendChild(CreateNode("name", name));
                 xn.AppendChild(CreateNode("equate", equate));
@@ -71,14 +87,19 @@ namespace SheetGenerator.BLL
                 return false;
             }
         }
-        /*
-         * 修改某个节点的属性 
-         */
-        internal bool ChangeNodeValue(string nodeName, string oldValue, string newValue)
+
+        /// <summary>
+        /// 修改某个节点的属性
+        /// </summary>
+        /// <param name="nodeName"></param>
+        /// <param name="oldValue"></param>
+        /// <param name="newValue"></param>
+        /// <returns></returns>
+        internal bool ChangeNodeValue(string uni, string nodeName, string newValue)
         {
             try
             {
-                XmlNodeList xn = xe.SelectNodes("equation/*["+nodeName+"="+oldValue+"]");
+                XmlNodeList xn = xe.SelectNodes("equation[uni=" + uni + "]");
                 xn[0].SelectSingleNode(nodeName).InnerText = newValue;
                 xd.Save(AppDomain.CurrentDomain.BaseDirectory + "EquationList.xml");
                 return true;
@@ -88,15 +109,18 @@ namespace SheetGenerator.BLL
                 return false;
             }
         }
-        /*
-         * 删除配置表中的某个算式。 
-         */
-        internal bool DeleteNode(string name)
+
+        /// <summary>
+        /// 删除配置表中的某个算式
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        internal bool DeleteNode(string uni)
         {
             try
             {
-                XmlNode xn = xe.SelectSingleNode("equation/*[name=" + name + "]");
-                xe.RemoveChild(xn);
+                XmlNodeList xn = xe.SelectNodes("equation[uni=" + uni + "]");
+                xe.RemoveChild(xn[0]);
                 xd.Save(AppDomain.CurrentDomain.BaseDirectory + "EquationList.xml");
                 return true;
             }
@@ -105,7 +129,14 @@ namespace SheetGenerator.BLL
                 return false;
             }
         }
-        private XmlNode CreateNode(string name,string value)
+
+        /// <summary>
+        /// 创建新的xml节点
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private XmlNode CreateNode(string name, string value)
         {
             XmlNode xn = xd.CreateElement(name);
             xn.Value = value;

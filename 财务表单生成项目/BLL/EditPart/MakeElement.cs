@@ -39,6 +39,7 @@ namespace SheetGenerator
             EquatePartEditList.Children.Clear();
             GetEquateParts(equate);
         }
+       
         /// <summary>
         /// 获取是否需要累加的按钮
         /// </summary>
@@ -58,6 +59,7 @@ namespace SheetGenerator
             }
             return CreateButton("E" + EquateElementList.Count.ToString(), addupTxt, 40, EquatePartChange_Click, "part","Add");
         }
+       
         /// <summary>
         /// 获取是否当日的按钮
         /// </summary>
@@ -106,6 +108,8 @@ namespace SheetGenerator
             btn.Name = name;
             btn.Click += method;
             btn.Tag = tag;
+            if (content == "**" || content == "?")
+                btn.Foreground = new SolidColorBrush(Colors.Red);
             return btn;
         }
 
