@@ -71,13 +71,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BLL\Animation.cs" />
-    <Compile Include="BLL\CalPart.cs" />
-    <Compile Include="BLL\Equation.cs" />
-    <Compile Include="BLL\EquationConfig.cs" />
+    <Compile Include="BLL\CalculatePart\CalPart.cs" />
+    <Compile Include="BLL\BasePart\Equation.cs" />
+    <Compile Include="BLL\BasePart\EquationConfig.cs" />
+    <Compile Include="BLL\EditPart\ElementMethod.cs" />
+    <Compile Include="BLL\EditPart\MakeElement.cs" />
     <Compile Include="BLL\Error.cs" />
-    <Compile Include="BLL\ExcelOperation.cs" />
-    <Compile Include="BLL\FileConfig.cs" />
-    <Compile Include="BLL\MainPart.cs" />
+    <Compile Include="BLL\BasePart\ExcelOperation.cs" />
+    <Compile Include="BLL\BasePart\FileConfig.cs" />
+    <Compile Include="BLL\EditPart\MainPart.cs" />
     <Compile Include="BLL\PadAnime.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

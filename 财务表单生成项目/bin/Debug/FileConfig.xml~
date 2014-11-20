@@ -112,11 +112,11 @@
     <cjmx filename="表1_2_1" tabletype="v" filetype=".xls" procedureName="[备付金对账].[备付金_获取统计_出金]">
       <column1 Hposition="B" Vposition="14" name="bz" CHname="本期业务系统中借记客户资金账户金额"/>
       <column2 Hposition="C" Vposition="14" name="byc" CHname="本期业务应出金金额"/>
-      <column3 Hposition="D" Vposition="14" name="bsxf" CHname="本期手续费等收入_支出"/>
+      <column3 Hposition="D" Vposition="14" name="bsxf" CHname="本期手续费等收入-支出"/>
       <column4 Hposition="E" Vposition="14" name="bfbc" CHname="本期系统反应，本期出金"/>
       <column5 Hposition="F" Vposition="14" name="qfbc" CHname="前期系统反应，本期出金"/>
       <column6 Hposition="G" Vposition="14" name="kk" CHname="本期扣款的金额"/>
-      <column7 Hposition="H" Vposition="14" name="bfqc" CHname="本期处理_补入账_金额"/>
+      <column7 Hposition="H" Vposition="14" name="bfqc" CHname="本期处理—补入账-金额"/>
     </cjmx>
     <sjcj filename="表1_3" tabletype="h" filetype=".xls" procedureName="[备付金对账].[备付金_获取统计_出金]">
       <column1 Hposition="E" Vposition="6" name="bz_sj" CHname="C01" />

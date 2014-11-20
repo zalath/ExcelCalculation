@@ -53,7 +53,7 @@ namespace SheetGenerator
         }
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            Anime_CVSchangeBack(currentCVS, stCVS);
+            Anime_CVSchangeBack(stCVS, currentCVS);
             Anime_Window_Resize_Back(this);
             Anime_BackBtn_Hide(BackButton);
             BackButton.IsEnabled = false;
@@ -118,6 +118,7 @@ namespace SheetGenerator
 
             EquateListPart.Children.Clear();
             EquateEditListPart.Children.Clear();
+            EquateDeleteListPart.Children.Clear();
             GetEquateList(EquateListPart, EquateEditListPart, EquateDeleteListPart);
             
             Anime_CVSchange(stCVS, EditListCVS);
@@ -127,6 +128,7 @@ namespace SheetGenerator
         private void EquateEditDetailBtn_Click(object sender, RoutedEventArgs e)
         {
             EquatePartList.Children.Clear();
+            EquatePartEditList.Children.Clear();
 
             Button btn = sender as Button;
             equateNameLB.Content = btn.Name + ":";
@@ -160,10 +162,6 @@ namespace SheetGenerator
             DeleteEquateButton.Content = "删除";
             DeleteEquateButton.Click -= HideDeleteQuateBtn_Click;
             DeleteEquateButton.Click += ShowDeleteQuateBtn_Click;
-        }
-        private void DeleteQuateFinalBtn_Click(object sender, RoutedEventArgs e)
-        {
-            string equateName = (sender as Button).Name;
         }
         #endregion
     }

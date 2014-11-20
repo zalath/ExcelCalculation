@@ -37,7 +37,7 @@ namespace SheetGenerator.BLL
         internal List<string> GetFileList()
         {
             List<string> files = new List<string>();
-            XmlNodeList xnl = xe.SelectSingleNode("/FileList").ChildNodes;
+            XmlNodeList xnl = xe.SelectSingleNode("FileList").ChildNodes;
             for(int i=0;i<xnl.Count;i++)
             {
                 files.Add(xnl[i].SelectSingleNode("@filename").Value);

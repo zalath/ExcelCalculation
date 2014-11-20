@@ -24,18 +24,18 @@ namespace SheetGenerator
     public partial class MainWindow : Window
     {
         #region 全局方法
-        private void Anime_CVSchange(UIElement u1, UIElement u2)
+        private void Anime_CVSchange(UIElement from, UIElement to)
         {
             Storyboard sb = new Storyboard();
-            Animation.Anime_Move_Middle(ref sb, u1, 0, -200, 0, 0);
-            Animation.Anime_Move_Middle(ref sb, u2, 100, 0, 1, 0);
+            Animation.Anime_Move_Middle(ref sb, from, 0, -400, 0, 0);
+            Animation.Anime_Move_Middle(ref sb, to, 100, 0, 1, 0);
             sb.Begin();
         }
-        private void Anime_CVSchangeBack(UIElement u1, UIElement u2)
+        private void Anime_CVSchangeBack(UIElement from, UIElement to)
         {
             Storyboard sb = new Storyboard();
-            Animation.Anime_Move_Middle(ref sb, u1, 0, 200, 0, 0);
-            Animation.Anime_Move_Middle(ref sb, u2, 100, 0, 1, 0);
+            Animation.Anime_Move_Middle(ref sb, from, 100, 0, 1, 0);
+            Animation.Anime_Move_Middle(ref sb, to, 0, 400, 0, 0);
             sb.Begin();
         }
         private void Anime_ErrorTip(UIElement uError)
