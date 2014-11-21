@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <equation>
+    <uni>1</uni>
+    <order>1</order>
+    <name>表2_到_表3</name>
+    <equate>表1_2_1@本期手续费等收入_支出@N@now|+|表1_3@C02@N@now|=|表1_10@系统已减少余额，银行未减少余额_5日内金额@N@now</equate>
+  </equation>
+  <equation>
+    <uni>2</uni>
+    <order>2</order>
+    <name>银行已入_系统未入</name>
+    <equate>表1_1@本期应收入金@N@now|=|表1_10@系统已增加余额，银行未增加余额_5日内金额@N@now</equate>
+  </equation>
+  <equation>
+    <uni>3</uni>
+    <order>3</order>
+    <name>银行已出_系统未出</name>
+    <equate>表1_2_1@本期业务应出金金额@N@now|-|表1_2_1@本期系统反应，本期出金@N@now|=|表1_10@系统已减少余额，银行未减少余额_5日内金额@N@now</equate>
+  </equation>
+  <Uni>6</Uni>
+  <equateFormat>
+    <order>代表计算序号的数字</order>
+    <name>算式的别称</name>
+    <equate>表名_列名_是否累加(Y,N)_日期（pre,now,next）%+/-%表名_列名_是否累加(Y,N)_日期（pre,now,next）%=%表名_列名_是否累加(Y,N)_日期（pre,now,next）</equate>
+  </equateFormat>
+</Document>

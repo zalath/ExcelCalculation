@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document>
+  <annotations>
+    <annotation>同一个银行下所有文件中的所有column，name必须唯一</annotation>
+    <annotation>不要更改标签中参数的顺序</annotation>
+    <annotation></annotation>
+  </annotations>
+  <BankList1>
+    <bank>CCB_xkz</bank>
+    <bank>CMB_dyc</bank>
+    <bank>BOCM_fcm</bank>
+    <bank>BC_bqj</bank>
+    <bank>CEB_jy</bank>
+    <bank>PSBC_zcl</bank>
+    <bank>BjRCB_ft</bank>
+    <bank>JSCB_bj</bank>
+  </BankList1>
+  <BankList2>
+    <bank>CNCB_shjd</bank>
+    <bank>HXB_sz</bank>
+    <bank>HXB_wgc</bank>
+    <bank>CEB_hf</bank>
+    <bank>CEB_wh</bank>
+    <bank>CEB_nbhs</bank>
+    <bank>ABC_szzx</bank>
+  </BankList2>
+<BankListMain>
+  <CCB_xkz CHname="建设银行_西客站支行" Identity="中国建设银行004026">
+    <file>cjmx</file>
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>rjmx</file>
+    <file>sjcj</file>
+  </CCB_xkz>
+  <CMB_dyc CHname="招商银行_大运村支行" Identity="招商银行110703">
+    <file>cjmx</file>
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>sjcj</file>
+  </CMB_dyc>
+  <BOCM_fcm CHname="交通银行_阜成门支行" Identity="交通银行014366">
+    <file>cjmx</file>
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>sjcj</file>
+  </BOCM_fcm>
+  <CEB_jy CHname="光大银行_金源支行" Identity="中国光大银行049929">
+    <file>cjmx</file>
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>sjcj</file>
+  </CEB_jy>
+  <PSBC_zcl CHname="邮政储蓄_知春路支行" Identity="邮储银行010002">
+    <file>cjmx</file>
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>sjcj</file>
+  </PSBC_zcl>
+  <BjRCB_ft CHname="北农商_丰台支行" Identity="北京农村商业银行030476">
+    <file>cjmx</file>
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>sjcj</file>
+  </BjRCB_ft>
+  <BC_bqj CHname="中国银行_北七家支行" Identity="中国银行659625">
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>rjmx</file>
+  </BC_bqj>
+  <HXB_wgc CHname="华夏银行_魏公村分行" Identity="华夏银行441725">
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>rjmx</file>
+  </HXB_wgc>
+  <JSCB_bj CHname="江苏银行_北京分行" Identity="江苏银行138813">
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>rjmx</file>
+  </JSCB_bj>
+  <CNCB_shjd CHname="中信银行_上海嘉定支行" Identity="中信银行001184">
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>rjmx</file>
+  </CNCB_shjd>
+  <HXB_sz CHname="华夏银行_深圳分行" Identity="华夏银行511864">
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>rjmx</file>
+  </HXB_sz>
+  <CEB_wh CHname="光大银行_武汉分行" Identity="中国光大银行294032">
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>rjmx</file>
+  </CEB_wh>
+  <ABC_szzx CHname="农业银行_深圳中心区支行" Identity="中国农业银行020369">
+    <file>wdzfx</file>
+    <file>wdztj</file>
+    <file>rjmx</file>
+  </ABC_szzx>
+</BankListMain>
+  <FileList>
+    <rjmx filename="表1_1" tabletype="v" filetype=".xls" procedureName="[备付金对账].[备付金_获取统计_入金]">
+      <column1 Hposition="B" Vposition="16" name="bfbr" CHname="本期系统反应_本期入金"/>
+      <column2 Hposition="C" Vposition="16" name="bfbr_sxf" CHname="本期系统反应_本期入金_手续费"/>
+      <column3 Hposition="G" Vposition="16" name="qfbr" CHname="前期系统反应_本期入金"/>
+      <column4 Hposition="H" Vposition="16" name="qfbr_sxf" CHname="前期系统反应_本期入金_手续费"/>
+      <column5 Hposition="L" Vposition="16" name="yr" CHname="本期应收入金"/>
+      <column6 Hposition="M" Vposition="16" name="yr_sxf" CHname="本期应收入金手续费"/>
+      <column7 Hposition="Q" Vposition="16" name="wfr" CHname="系统未反应的银行扣款，本期收到的金额"/>
+      <column8 Hposition="R" Vposition="16" name="brz" CHname="补入账金额"/>
+    </rjmx>
+    <cjmx filename="表1_2_1" tabletype="v" filetype=".xls" procedureName="[备付金对账].[备付金_获取统计_出金]">
+      <column1 Hposition="B" Vposition="14" name="bz" CHname="本期业务系统中借记客户资金账户金额"/>
+      <column2 Hposition="C" Vposition="14" name="byc" CHname="本期业务应出金金额"/>
+      <column3 Hposition="D" Vposition="14" name="bsxf" CHname="本期手续费等收入_支出"/>
+      <column4 Hposition="E" Vposition="14" name="bfbc" CHname="本期系统反应，本期出金"/>
+      <column5 Hposition="F" Vposition="14" name="qfbc" CHname="前期系统反应，本期出金"/>
+      <column6 Hposition="G" Vposition="14" name="kk" CHname="本期扣款的金额"/>
+      <column7 Hposition="H" Vposition="14" name="bfqc" CHname="本期处理_补入账_金额"/>
+    </cjmx>
+    <sjcj filename="表1_3" tabletype="h" filetype=".xls" procedureName="[备付金对账].[备付金_获取统计_出金]">
+      <column1 Hposition="E" Vposition="6" name="bz_sj" CHname="C01" />
+      <column2 Hposition="E" Vposition="7" name="C02" CHname="C02" />
+    </sjcj>
+    <wdztj filename="表1_9" tabletype="h" filetype=".xls" procedureName="[备付金对账].[备付金_获取统计_未达账]">
+      <column1 Hposition="C" Vposition="11" name="yfwr_all" CHname="系统已增加余额，银行未增加余额" />
+      <column2 Hposition="C" Vposition="12" name="yfwc_all" CHname="系统已减少余额，银行未减少余额" />
+      <column3 Hposition="C" Vposition="13" name="wfyr_all" CHname="银行已增加余额，系统未增加余额" />
+      <column4 Hposition="C" Vposition="14" name="wfyc_all" CHname="银行已减少余额，系统未减少余额" />
+    </wdztj>
+    <wdzfx filename="表1_10" tabletype="v" filetype=".xls" procedureName="[备付金对账].[备付金_获取统计_未达账]">
+      <column1 Hposition="B" Vposition="14" name="yfwr_5_count" CHname="系统已增加余额，银行未增加余额_5日内笔数" />
+      <column2 Hposition="C" Vposition="14" name="yfwr_5_money" CHname="系统已增加余额，银行未增加余额_5日内金额" />
+      <column3 Hposition="D" Vposition="14" name="yfwr_6_10_count" CHname="系统已增加余额，银行未增加余额_6_10日内笔数" />
+      <column4 Hposition="E" Vposition="14" name="yfwr_6_10_money" CHname="系统已增加余额，银行未增加余额_6_10日内金额" />
+      <column5 Hposition="F" Vposition="14" name="yfwr_11_count" CHname="系统已增加余额，银行未增加余额_11日前笔数" />
+      <column6 Hposition="G" Vposition="14" name="yfwr_11_money" CHname="系统已增加余额，银行未增加余额_11日前金额" />
+      <column7 Hposition="H" Vposition="14" name="yfwc_5_count" CHname="系统已减少余额，银行未减少余额_5日内笔数" />
+      <column8 Hposition="I" Vposition="14" name="yfwc_5_money" CHname="系统已减少余额，银行未减少余额_5日内金额" />
+      <column9 Hposition="J" Vposition="14" name="yfwc_6_10_count" CHname="系统已减少余额，银行未减少余额_6_10日内笔数" />
+      <column10 Hposition="K" Vposition="14" name="yfwc_6_10_money" CHname="系统已减少余额，银行未减少余额_6_10日内金额" />
+      <column11 Hposition="L" Vposition="14" name="yfwc_11_count" CHname="系统已减少余额，银行未减少余额_11日前笔数" />
+      <column12 Hposition="M" Vposition="14" name="yfwc_11_money" CHname="系统已减少余额，银行未减少余额_11日前金额" />
+      <column13 Hposition="N" Vposition="14" name="wfyr_5_count" CHname="银行已增加余额，系统未增加余额_5日内笔数" />
+      <column14 Hposition="O" Vposition="14" name="wfyr_5_money" CHname="银行已增加余额，系统未增加余额_5日内金额" />
+      <column15 Hposition="P" Vposition="14" name="wfyr_6_10_count" CHname="银行已增加余额，系统未增加余额_6_10日内笔数" />
+      <column16 Hposition="Q" Vposition="14" name="wfyr_6_10_money" CHname="银行已增加余额，系统未增加余额_6_10日内金额" />
+      <column17 Hposition="R" Vposition="14" name="wfyr_11_count" CHname="银行已增加余额，系统未增加余额_11日前笔数" />
+      <column18 Hposition="S" Vposition="14" name="wfyr_11_money" CHname="银行已增加余额，系统未增加余额_11日前金额" />
+      <column19 Hposition="T" Vposition="14" name="wfyc_5_count" CHname="银行已减少余额，系统未减少余额_5日内笔数" />
+      <column20 Hposition="U" Vposition="14" name="wfyc_5_money" CHname="银行已减少余额，系统未减少余额_5日内金额" />
+      <column21 Hposition="V" Vposition="14" name="wfyc_6_10_count" CHname="银行已减少余额，系统未减少余额_6_10日内笔数" />
+      <column22 Hposition="W" Vposition="14" name="wfyc_6_10_money" CHname="银行已减少余额，系统未减少余额_6_10日内金额" />
+      <column23 Hposition="X" Vposition="14" name="wfyc_11_count" CHname="银行已减少余额，系统未减少余额_11日前笔数" />
+      <column24 Hposition="Y" Vposition="14" name="wfyc_11_money" CHname="银行已减少余额，系统未减少余额_11日前金额" />
+    </wdzfx>
+   </FileList>
+   <standardtablename>
+      <context>20140901_20140930表1_1[BJ0000004]北京钱袋宝支付技术有限公司_民生银行998869</context>
+      <format>time_表n_[BJ0000004]北京钱袋宝支付技术有限公司_银行名称_商户号后六位</format>
+    </standardtablename>
+</Document>

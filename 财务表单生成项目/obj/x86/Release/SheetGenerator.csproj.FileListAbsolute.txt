@@ -1,0 +1,14 @@
+D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\Release\SheetGenerator.csproj.ResolveComReference.cache
+D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\bin\Release\SheetGenerator.exe
+D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\bin\Release\SheetGenerator.pdb
+D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\Release\SheetGenerator.csprojResolveAssemblyReference.cache
+D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\Release\Mainresource.baml
+D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\Release\MainWindow.baml
+D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\Release\MainWindow.g.cs
+D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\Release\App.g.cs
+D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\Release\SheetGenerator_MarkupCompile.cache
+D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\Release\SheetGenerator.g.resources
+D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\Release\SheetGenerator.Properties.Resources.resources
+D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\Release\SheetGenerator.csproj.GenerateResource.Cache
+D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\Release\SheetGenerator.exe
+D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\Release\SheetGenerator.pdb
