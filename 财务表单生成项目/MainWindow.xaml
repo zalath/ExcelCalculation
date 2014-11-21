@@ -12,7 +12,7 @@
         <Button Name="CloseButton" Style="{StaticResource ClosebtnTemplate}" ToolTip="关闭" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="CloseButton_Click" Margin="0,0,0,10" />
         <Button Name="BackButton" IsEnabled="False" Opacity="0" Style="{StaticResource LittlebuttonTemplate}" Width="30" Height="30" Content="0" Foreground="White" ToolTip="返回" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="BackBtn_Click" Margin="110,0,0,10" />
         <Canvas Margin="15,20,20,15">
-            <Canvas Name="stCVS" >
+            <Canvas Name="stCVS">
                 <Button Content="计算" Canvas.Left="30" Canvas.Top="60" Foreground="White" Height="70" Name="calculateBtn" Style="{StaticResource NextbuttonTemplate}" Width="70" Click="ToCalculate_Click"  />
                 <Button Content="编辑算式" Canvas.Left="30" Canvas.Top="160" Foreground="White" Height="70" Name="editEquateBtn" Style="{StaticResource NextbuttonTemplate}" Width="70" Click="EditEquate_Click"  />
             </Canvas>
@@ -68,13 +68,17 @@
             </Canvas>
             <!--编辑算式-->
             <!--编辑算式__算式列表-->
-            <Canvas Name="EditListCVS" Canvas.Left="400" Opacity="0">
+            <Canvas Name="EditListCVS"  Canvas.Left="400" Opacity="0">
                 <Button Name="DeleteEquateButton" Content="删除" Foreground="White" Canvas.Top="5" Canvas.Left="183" Width="30" Height="25" Style="{StaticResource RecbuttonTemplate}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="ShowDeleteQuateBtn_Click" Margin="0,0,0,10" />
-                <ScrollViewer Canvas.Left="10" Canvas.Top="40" Height="275" Width="215" CanContentScroll="True" xmlns:sys="clr-namespace:System;assembly=mscorlib" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Button Name="OrderEquateButton" Content="排序" ToolTip="影响计算时的执行顺序" Foreground="White" Canvas.Top="5" Canvas.Left="10" Width="30" Height="25" Style="{StaticResource RecbuttonTemplate}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="ShowOrderQuateBtn_Click" Margin="0,0,0,10" />
+                <Label Name="OrderErrorLB" Content="错误" Canvas.Left="70" Canvas.Top="320" Foreground="Red" Visibility="Collapsed"></Label>
+                <ScrollViewer Name="EquateListSV" Canvas.Left="10" Canvas.Top="40" Height="300" Width="215" CanContentScroll="True" xmlns:sys="clr-namespace:System;assembly=mscorlib" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                     <ScrollViewer.Resources>
                         <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>
                     </ScrollViewer.Resources>
                     <StackPanel Orientation="Horizontal">
+                        <StackPanel Width="35" x:Name="EquateOrderListPart" IsEnabled="False" Visibility="Collapsed">
+                        </StackPanel>
                         <StackPanel Width="170" x:Name="EquateListPart">
                         </StackPanel>
                         <StackPanel Width="35" x:Name="EquateEditListPart">
@@ -83,13 +87,14 @@
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
-                <Button Name="AddEquateButton" Canvas.Top="320" Canvas.Left="100" Style="{StaticResource AddbtnTemplate}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="AddQuateBtn_Click" Margin="0,0,0,10" />
+                <Button Name="AddEquateButton" Content="添加" Foreground="White" FontSize="12" Canvas.Top="345" Canvas.Left="100" Style="{StaticResource LittlebuttonTemplate}" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="AddQuateBtn_Click" Margin="0,0,0,10" />
             </Canvas>
             <!--编辑算式__详细-->
-            <Canvas Name="EditDetailCVS" Canvas.Left="400" Opacity="0">
+            <Canvas Name="EditDetailCVS"  Canvas.Left="400" Opacity="0">
                 <Label Name="hideequateNameLB" Content="" Visibility="Hidden"></Label>
-                <Label Name="equateNameLB" Canvas.Left="40" Canvas.Top="10" Foreground="White" Content="算式的名字"></Label>
                 <Label Name="equateWarnLB" Canvas.Left="110" Canvas.Top="10" Foreground="Red" FontSize="17" Content="WarningText" Opacity="0"></Label>
+                <Label Name="NewNameLB" Content="算式名称：" Foreground="White" FontSize="14" Canvas.Left="10" Canvas.Top="-10"></Label>
+                <TextBox Name="equateNameTB" Canvas.Left="90" Width="200" Canvas.Top="-10" Text="算式的名字"></TextBox>
                 <ScrollViewer Canvas.Left="10" Canvas.Top="50" Height="260" Width="340" CanContentScroll="True" xmlns:sys="clr-namespace:System;assembly=mscorlib" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                     <ScrollViewer.Resources>
                         <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>

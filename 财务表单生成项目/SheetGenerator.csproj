@@ -76,6 +76,9 @@
     <Compile Include="BLL\BasePart\EquationConfig.cs" />
     <Compile Include="BLL\EditPart\ElementMethod.cs" />
     <Compile Include="BLL\EditPart\MakeElement.cs" />
+    <Compile Include="BLL\EditPart\Part_Change.cs" />
+    <Compile Include="BLL\EditPart\Part_Delete.cs" />
+    <Compile Include="BLL\EditPart\Part_Order.cs" />
     <Compile Include="BLL\Error.cs" />
     <Compile Include="BLL\BasePart\ExcelOperation.cs" />
     <Compile Include="BLL\BasePart\FileConfig.cs" />
@@ -151,6 +154,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="IMG\AddBtn.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BLL\EditPart\Part_Add.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

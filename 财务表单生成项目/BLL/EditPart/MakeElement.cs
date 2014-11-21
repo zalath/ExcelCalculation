@@ -107,6 +107,7 @@ namespace SheetGenerator
             btn.Foreground = new SolidColorBrush(Colors.White);
             btn.Name = name;
             btn.Click += method;
+            btn.Margin = new Thickness(0, 0, 0, 10);
             btn.Tag = tag;
             if (content == "**" || content == "?")
                 btn.Foreground = new SolidColorBrush(Colors.Red);
@@ -128,6 +129,26 @@ namespace SheetGenerator
             lb.Name = name;
             lb.Content = content;
             lb.Height = height;
+            lb.Margin = new Thickness(0, 0, 0, 10);
+            return lb;
+        }
+
+        /// <summary>
+        /// 公用创建TextBox
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="content"></param>
+        /// <param name="color"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        internal static TextBox CreateTextBox(string name, string content, Color color, double height = 25)
+        {
+            TextBox lb = new TextBox();
+            lb.Foreground = new SolidColorBrush(color);
+            lb.Name = name;
+            lb.Text = content;
+            lb.Height = height;
+            lb.Margin = new Thickness(0, 0, 0, 10);
             return lb;
         }
         #endregion

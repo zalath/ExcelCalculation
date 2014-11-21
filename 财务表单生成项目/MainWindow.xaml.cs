@@ -83,6 +83,16 @@ namespace SheetGenerator
             Anime_BackBtn_Hide(BackButton);
             BackButton.IsEnabled = false;
         }
+
+        /// <summary>
+        /// 显示执行结果是否成功
+        /// </summary>
+        /// <param name="msg"></param>
+        private void ShowIfSuccess(string msg)
+        {
+            ResultMsgLB.Content = msg;
+            Anime_Show_ResultMsg();
+        }
         #endregion
 
         #region 计算面板部分
@@ -112,7 +122,7 @@ namespace SheetGenerator
             }
             catch (Exception)
             {
-                Anime_ErrorTip(MonthErrorLB, Convert.ToDouble(MonthErrorLB.GetValue(Canvas.LeftProperty)), Convert.ToDouble(MonthErrorLB.GetValue(Canvas.TopProperty)));
+                Anime_ErrorTip(MonthErrorLB);
                 return;
             }
 
@@ -179,7 +189,8 @@ namespace SheetGenerator
             EquateListPart.Children.Clear();
             EquateEditListPart.Children.Clear();
             EquateDeleteListPart.Children.Clear();
-            GetEquateList(EquateListPart, EquateEditListPart, EquateDeleteListPart);
+            EquateOrderListPart.Children.Clear();
+            GetEquateList();
             currentCVS = EditListCVS;
         }
 
@@ -190,17 +201,30 @@ namespace SheetGenerator
         /// <param name="e"></param>
         private void EquateEditDetailBtn_Click(object sender, RoutedEventArgs e)
         {
+            ShowEquateDetail_Edit(sender as Button);
+        }
+        private void ShowEquateDetail_Edit(Button btn)
+        {
             EquatePartList.Children.Clear();
             EquatePartEditList.Children.Clear();
 
-            Button btn = sender as Button;
-            string name = btn.Name.Substring(0,btn.Name.LastIndexOf("E"));
-            string order = btn.Name.Substring(btn.Name.LastIndexOf("E") + 1);
+            string name = btn.Name.Substring(0, btn.Name.LastIndexOf("E"));
+            string uni = btn.Name.Substring(btn.Name.LastIndexOf("E") + 1);
 
-            equateNameLB.Content = name + ":";
-            equateNameLB.FontSize = 20;
-            hideequateNameLB.Content = order;
-            hideequateNameLB.Tag = btn.Tag;
+            if (uni == "N")
+            {
+                equateNameTB.Text = "";
+
+                CommitChangeBtn.Click -= CommitChangeBtn_Click;
+                CommitChangeBtn.Click += CommitAddBtn_Click;
+                CommitChangeBtn.Content = "添加";
+            }
+            else
+            {
+                equateNameTB.Text = name;
+                hideequateNameLB.Content = uni;
+                hideequateNameLB.Tag = btn.Tag;
+            }
 
             GetEquateParts(btn.Tag.ToString());
 
@@ -208,114 +232,15 @@ namespace SheetGenerator
             Anime_Window_Resize(this);
             currentCVS = EditDetailCVS;
         }
-
-        /// <summary>
-        /// 删除指定的算式
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void EquateDeleteDetailBtn_Click(object sender, RoutedEventArgs e)
-        {
-            string name = (sender as Button).Name;
-            DeleteEquateNameLB.Tag = name.Substring(name.LastIndexOf("D") + 1);
-            Anime_CVSchange(EditListCVS,DeleteEquateCVS);
-        }
-        /// <summary>
-        /// 确认删除算式
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Delete_Confirm_Btn_Click(object sender, RoutedEventArgs e)
-        {
-            EquationConfig ec = new EquationConfig();
-            ec.DeleteNode(DeleteEquateNameLB.Tag.ToString());
-            Anime_CVSchangeBack(EditListCVS, DeleteEquateCVS);
-            ShowIfSuccess("删除成功");
-        }
-
-        /// <summary>
-        /// 取消删除算式
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Delete_Cancel_Btn_Click(object sender, RoutedEventArgs e)
-        {
-            Anime_CVSchangeBack(EditListCVS, DeleteEquateCVS);
-        }
-
-        /// <summary>
-        /// 添加新的算式
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void AddQuateBtn_Click(object sender, RoutedEventArgs e)
-        { }
-
-        /// <summary>
-        /// 显示删除算式的按钮
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ShowDeleteQuateBtn_Click(object sender, RoutedEventArgs e)
-        {
-            EquateEditListPart.IsEnabled = false;
-            EquateEditListPart.Visibility = Visibility.Collapsed;
-            EquateDeleteListPart.IsEnabled = true;
-            EquateDeleteListPart.Visibility = Visibility.Visible;
-            DeleteEquateButton.Content = "修改";
-            DeleteEquateButton.Click -= ShowDeleteQuateBtn_Click;
-            DeleteEquateButton.Click += HideDeleteQuateBtn_Click;
-        }
-        /// <summary>
-        /// 隐藏删除算式的按钮
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void HideDeleteQuateBtn_Click(object sender, RoutedEventArgs e)
-        {
-            EquateDeleteListPart.IsEnabled = false;
-            EquateDeleteListPart.Visibility = Visibility.Collapsed;
-            EquateEditListPart.IsEnabled = true;
-            EquateEditListPart.Visibility = Visibility.Visible;
-            DeleteEquateButton.Content = "删除";
-            DeleteEquateButton.Click -= HideDeleteQuateBtn_Click;
-            DeleteEquateButton.Click += ShowDeleteQuateBtn_Click;
-        }
-
-        private void CancelChangeBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Anime_CVSchangeBack(EditListCVS, EditDetailCVS);
-            Anime_Window_Resize_Back(this);
-        }
-        /// <summary>
-        /// 确认修改算式
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CommitChangeBtn_Click(object sender, RoutedEventArgs e)
-        {
-            //获取重新生成之后的算式。
-            string equate = ReformEquate();
-            if (Check_Reformed_Equate(equate))
-            {
-                EquationConfig ec = new EquationConfig();
-                ec.ChangeNodeValue(hideequateNameLB.Content.ToString(), "equate", equate);
-                Reload_Equate_List();
-                Anime_Window_Resize_Back(this);
-                Anime_CVSchangeBack(EditListCVS, EditDetailCVS);
-                ShowIfSuccess("修改成功");
-            }
-        }
         /// <summary>
         /// 显示修改过程中出现的算式错误
         /// </summary>
         /// <param name="errorMsg"></param>
         private void Show_Equate_Change_Error(string errorMsg)
         {
-            equateNameLB.Visibility = Visibility.Collapsed;
             equateWarnLB.Content = errorMsg;
             equateWarnLB.Visibility = Visibility.Visible;
-            Anime_ErrorTip(equateWarnLB, Convert.ToDouble(equateWarnLB.GetValue(Canvas.LeftProperty)), Convert.ToDouble(equateWarnLB.GetValue(Canvas.TopProperty)));
+            Anime_ErrorTip(equateWarnLB);
         }
         #endregion
 

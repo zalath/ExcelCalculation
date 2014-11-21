@@ -32,7 +32,7 @@ namespace SheetGenerator.BLL
             {
                 for (int j = i + 1; j < equations.Count; j++)
                 {
-                    if (Convert.ToInt32(equations[i][0]) > Convert.ToInt32(equations[j][0]))
+                    if (Convert.ToInt32(equations[i]["序号"]) > Convert.ToInt32(equations[j]["序号"]))
                     {
                         DataRow drTemp = equations[i];
                         equations[i] = equations[j];
@@ -70,22 +70,41 @@ namespace SheetGenerator.BLL
         /// <param name="name"></param>
         /// <param name="equate"></param>
         /// <returns></returns>
-        internal bool CreateEquation(string order, string name, string equate)
+        internal bool CreateEquation(string name, string equate)
         {
             try
             {
                 XmlNode xn = xd.CreateElement("equation");
-                xn.AppendChild(CreateNode("uni", xd.ChildNodes.Count.ToString()));
-                xn.AppendChild(CreateNode("order", order));
+                xn.AppendChild(CreateNode("uni", GetUni()));
+                xn.AppendChild(CreateNode("order", GetUni()));
                 xn.AppendChild(CreateNode("name", name));
                 xn.AppendChild(CreateNode("equate", equate));
                 xe.AppendChild(xn);
+                xd.Save(AppDomain.CurrentDomain.BaseDirectory + "EquationList.xml");
+                SetUni((Convert.ToInt32(GetUni()) + 1).ToString());
                 return true;
             }
             catch (Exception)
             {
                 return false;
             }
+        }
+        /// <summary>
+        /// 获取当前一个算式的编号。递增不重复
+        /// </summary>
+        /// <returns></returns>
+        private string GetUni()
+        {
+            return xe.SelectSingleNode("Uni").InnerText;
+        }
+        /// <summary>
+        /// 给配置文件中的最大编号赋值
+        /// </summary>
+        /// <param name="uni"></param>
+        private void SetUni(string uni)
+        {
+            xe.SelectSingleNode("Uni").InnerText = uni;
+            xd.Save(AppDomain.CurrentDomain.BaseDirectory + "EquationList.xml");
         }
 
         /// <summary>
@@ -139,7 +158,7 @@ namespace SheetGenerator.BLL
         private XmlNode CreateNode(string name, string value)
         {
             XmlNode xn = xd.CreateElement(name);
-            xn.Value = value;
+            xn.InnerText = value;
             return xn;
         }
     }

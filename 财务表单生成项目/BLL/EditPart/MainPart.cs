@@ -26,19 +26,15 @@ namespace SheetGenerator
         /// <summary>
         /// 获取算式列表 
         /// </summary>
-        /// <param name="u"></param>
-        /// <param name="uedit"></param>
-        /// <param name="udelete"></param>
-        private void GetEquateList(StackPanel u, StackPanel uedit, StackPanel udelete)
+        /// <param name="EquateListPart"></param>
+        /// <param name="EquateEditListPart"></param>
+        /// <param name="EquateDeleteListPart"></param>
+        private void GetEquateList()
         {
             EquationConfig ec = new EquationConfig();
             List<DataRow> equates = ec.GetEquation();
             for (int i = 0; i < equates.Count; i++)
             {
-                Label lbEmpty = CreateLabel("E" + i, "", Colors.White, 10);
-                Label lbEmptyEdit = CreateLabel("Ee" + i, "", Colors.White, 10);
-                Label lbEmptyDelete = CreateLabel("Ed" + i, "", Colors.White, 10);
-
                 Label lb = CreateLabel(equates[i]["名称"].ToString(), equates[i]["序号"] + " : " + equates[i]["名称"].ToString(), Colors.White);
 
                 Button btnEdit = CreateButton(equates[i]["名称"].ToString() + "E" + equates[i]["uni"].ToString(), "修改", 30, EquateEditDetailBtn_Click, "part");
@@ -49,14 +45,12 @@ namespace SheetGenerator
                 btnDelete.Height = 25;
                 btnDelete.Tag = equates[i]["算式"].ToString();
 
-                u.Children.Add(lb);
-                u.Children.Add(lbEmpty);
+                TextBox textOrder = CreateTextBox(equates[i]["名称"].ToString() + "O" + equates[i]["uni"].ToString(), (i + 1).ToString(), Colors.Black);
 
-                uedit.Children.Add(btnEdit);
-                uedit.Children.Add(lbEmptyEdit);
-
-                udelete.Children.Add(btnDelete);
-                udelete.Children.Add(lbEmptyDelete);
+                EquateListPart.Children.Add(lb);
+                EquateEditListPart.Children.Add(btnEdit);
+                EquateDeleteListPart.Children.Add(btnDelete);
+                EquateOrderListPart.Children.Add(textOrder);
             }
         }
 
@@ -135,7 +129,7 @@ namespace SheetGenerator
             Button deleteEquatePart = CreateButton("E" + EquateElementList.Count.ToString(), "删除", 30, EquatePartDelete_Click, "symbol");
             //添加入界面
             StackPanel st = new StackPanel();
-            deleteEquatePart.Margin = new Thickness(-30, 15, 0, 15);
+            deleteEquatePart.Margin = new Thickness(-30, 15, 0, 35);
             deleteEquatePart.Tag = EquatePartPanel;
             EquatePartEditList.Children.Add(deleteEquatePart);
             //添加入组件数组中。
@@ -243,7 +237,7 @@ namespace SheetGenerator
             {
                 Show_Equate_Change_Error("算式缺少某个参数");
             }
-            else if(equate.IndexOf("=") != equate.LastIndexOf("="))
+            else if (equate.IndexOf("=") != equate.LastIndexOf("="))
             {
                 Show_Equate_Change_Error("算式中有多个等号");
             }
@@ -253,13 +247,29 @@ namespace SheetGenerator
             }
             return false;
         }
-        private void ShowIfSuccess(string msg)
-        {
-            ResultMsgLB.Content = msg;
-            anime_Show_ResultMsg();
-        }
-
         #endregion
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

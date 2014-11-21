@@ -110,11 +110,19 @@ namespace SheetGenerator
                     {
                         PartName.Content = "选择列：";
                         //获取tag中文件名下的所有列名
-                        List<string> columnList = fc.GetFileColumns(((sender as Button).Tag as Button).Content.ToString());
-                        for (int i = 0; i < columnList.Count; i++)
+                        if (((sender as Button).Tag as Button).Content.ToString() == "**")
                         {
-                            Button btn = CreateButton("Column" + i, columnList[i], 300, BtnContentChanged_Click, "part");
-                            PartNameList.Children.Add(btn);
+                            Show_Equate_Change_Error("请先选择表！");
+                            return;
+                        }
+                        else
+                        {
+                            List<string> columnList = fc.GetFileColumns(((sender as Button).Tag as Button).Content.ToString());
+                            for (int i = 0; i < columnList.Count; i++)
+                            {
+                                Button btn = CreateButton("Column" + i, columnList[i], 300, BtnContentChanged_Click, "part");
+                                PartNameList.Children.Add(btn);
+                            }
                         }
                     }
                     else
@@ -154,7 +162,8 @@ namespace SheetGenerator
         /// <param name="e"></param>
         private void BtnContentChanged_Click(object sender, RoutedEventArgs e)
         {
-            equateNameLB.Visibility = Visibility.Visible;
+            NewNameLB.Visibility = Visibility.Visible;
+            equateNameTB.Visibility = Visibility.Visible;
             equateWarnLB.Visibility = Visibility.Collapsed;
             (ElementToChange as Button).Content = (sender as Button).Content;
             Anime_CVSchangeBack(EditDetailCVS, currentCVS);

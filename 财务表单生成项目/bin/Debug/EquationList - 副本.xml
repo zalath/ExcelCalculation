@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Document>
   <equation>
     <uni>1</uni>
@@ -18,6 +18,7 @@
     <name>银行已出_系统未出</name>
     <equate>表1_2_1@本期业务应出金金额@N@now|-|表1_2_1@本期系统反应，本期出金@N@now|=|表1_10@系统已减少余额，银行未减少余额_5日内金额@N@now</equate>
   </equation>
+  <Uni>4</Uni>
   <equateFormat>
     <order>代表计算序号的数字</order>
     <name>算式的别称</name>
