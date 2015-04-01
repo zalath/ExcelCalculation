@@ -12,3 +12,17 @@ D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\R
 D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\Release\SheetGenerator.csproj.GenerateResource.Cache
 D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\Release\SheetGenerator.exe
 D:\VS 2010 workspace\财务表单生成项目\财务表单生成项目\obj\x86\Release\SheetGenerator.pdb
+E:\MyFile\Github\ExcelCalculation\财务表单生成项目\obj\x86\Release\SheetGenerator.csproj.ResolveComReference.cache
+E:\MyFile\Github\ExcelCalculation\财务表单生成项目\bin\Release\SheetGenerator.exe
+E:\MyFile\Github\ExcelCalculation\财务表单生成项目\bin\Release\SheetGenerator.pdb
+E:\MyFile\Github\ExcelCalculation\财务表单生成项目\obj\x86\Release\SheetGenerator.csprojResolveAssemblyReference.cache
+E:\MyFile\Github\ExcelCalculation\财务表单生成项目\obj\x86\Release\Mainresource.baml
+E:\MyFile\Github\ExcelCalculation\财务表单生成项目\obj\x86\Release\MainWindow.baml
+E:\MyFile\Github\ExcelCalculation\财务表单生成项目\obj\x86\Release\MainWindow.g.cs
+E:\MyFile\Github\ExcelCalculation\财务表单生成项目\obj\x86\Release\App.g.cs
+E:\MyFile\Github\ExcelCalculation\财务表单生成项目\obj\x86\Release\SheetGenerator_MarkupCompile.cache
+E:\MyFile\Github\ExcelCalculation\财务表单生成项目\obj\x86\Release\SheetGenerator.g.resources
+E:\MyFile\Github\ExcelCalculation\财务表单生成项目\obj\x86\Release\SheetGenerator.Properties.Resources.resources
+E:\MyFile\Github\ExcelCalculation\财务表单生成项目\obj\x86\Release\SheetGenerator.csproj.GenerateResource.Cache
+E:\MyFile\Github\ExcelCalculation\财务表单生成项目\obj\x86\Release\SheetGenerator.exe
+E:\MyFile\Github\ExcelCalculation\财务表单生成项目\obj\x86\Release\SheetGenerator.pdb

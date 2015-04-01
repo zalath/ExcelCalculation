@@ -71,11 +71,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BLL\Animation.cs" />
+    <Compile Include="BLL\BasePart\AlterDate.cs" />
+    <Compile Include="BLL\BasePart\Iterate.cs" />
+    <Compile Include="BLL\CalculatePart\AddUpAll.cs" />
     <Compile Include="BLL\CalculatePart\CalPart.cs" />
     <Compile Include="BLL\BasePart\Equation.cs" />
     <Compile Include="BLL\BasePart\EquationConfig.cs" />
     <Compile Include="BLL\EditPart\ElementMethod.cs" />
     <Compile Include="BLL\EditPart\MakeElement.cs" />
+    <Compile Include="BLL\CalculatePart\AlterDate.cs" />
     <Compile Include="BLL\EditPart\Part_Change.cs" />
     <Compile Include="BLL\EditPart\Part_Delete.cs" />
     <Compile Include="BLL\EditPart\Part_Order.cs" />

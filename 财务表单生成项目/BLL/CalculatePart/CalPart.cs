@@ -68,13 +68,5 @@ namespace SheetGenerator.BLL
                 }
             }
         }
-
-        internal void EditEquate()
-        {
-            /*
-             * get the equation list
-             * 
-             */
-        }
     }
 }

@@ -14,8 +14,11 @@ namespace SheetGenerator.BLL
         /// <param name="bankIdentity">bank name and last 6bit of bankID</param>
         /// <param name="month">the selected month</param>
         /// <returns>if success</returns>
-        internal bool Calculate(string equate, string bankIdentity, DateTime month)//bankIdentity--银行名称加上备付金账号后六位
+        internal bool Calculate(string equate, string bankIdentity, DateTime month, string targetBankIdentity = "")//bankIdentity--银行名称加上备付金账号后六位
         {
+            if (targetBankIdentity == "")
+                targetBankIdentity = bankIdentity;
+
             try
             {
                 //format1:date(pre,now,next)_ifAddUp(yes,no)_SheetName_columnName%
@@ -41,7 +44,7 @@ namespace SheetGenerator.BLL
                     }
                 }
                 //循环计算部分。每个参数的每个取值。
-                List<List<double>> paramValueList = GetExcelValue(paramList, bankIdentity, month);
+                List<List<double>> paramValueList = GetExcelValue(paramList, bankIdentity, month, targetBankIdentity);
                 List<double> resultList = new List<double>();
                 for (int i = 0; i < paramList.Count - 1; i++)
                 {
@@ -55,6 +58,9 @@ namespace SheetGenerator.BLL
                     }
                 }
                 //将结果保存如Excel文件中。
+                if (targetBankIdentity != bankIdentity)//累加时，将结果保存到累加文件中
+                    bankIdentity = targetBankIdentity;
+
                 SetExcelValue(paramResult, bankIdentity, month, resultList);
                 return true;
             }
@@ -70,7 +76,7 @@ namespace SheetGenerator.BLL
         /// <param name="bankIdentity">bank name and last 6bit of bankID</param>
         /// <param name="month">the selected month</param>
         /// <returns>List of the column value lists</returns>
-        private List<List<double>> GetExcelValue(List<string> paramList, string bankIdentity, DateTime month)
+        private List<List<double>> GetExcelValue(List<string> paramList, string bankIdentity, DateTime month, string targetBankIdentity)
         {
             ExcelOperation eo = new ExcelOperation();
             List<List<double>> paramValueList = new List<List<double>>();
@@ -79,6 +85,10 @@ namespace SheetGenerator.BLL
             {
                 List<double> paramValue = new List<double>();
                 string[] parts = paramList[i].Split('@');//表名_列名_是否累加(Y,N)_日期（pre,now,next）
+
+                if (targetBankIdentity != bankIdentity && i > 0)//累加时，读取结果文件中的值
+                    bankIdentity = targetBankIdentity;
+
                 eo.AboutValue(parts, bankIdentity, month, ref paramValue, "read");
                 paramValueList.Add(paramValue);
             }

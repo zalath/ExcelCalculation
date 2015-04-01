@@ -45,7 +45,11 @@ namespace SheetGenerator
             for (int i = DateTime.Now.Year - 3; i <= DateTime.Now.Year + 3; i++)
             {
                 YearCB.Items.Add(CreateLabel("", i.ToString(), Colors.Black));
+                DataYearCB.Items.Add(CreateLabel("", i.ToString(), Colors.Black));
             }
+            DataYearCB.Text = DateTime.Now.Year.ToString();
+            DataMonthCB.Text = DateTime.Now.Month.ToString();
+            DataReportDate.Text = DateTime.Now.ToString();
             MonthCB.Text = DateTime.Now.Month.ToString();
             YearCB.Text = DateTime.Now.Year.ToString();
         }
@@ -106,6 +110,7 @@ namespace SheetGenerator
             Anime_BackBtn_Show(BackButton);
             Anime_CVSchange(stCVS, calGetDateCVS);
             currentCVS = calGetDateCVS;
+            Manage_onclick("tocalculate");
         }
 
         /// <summary>
@@ -115,16 +120,7 @@ namespace SheetGenerator
         /// <param name="e"></param>
         private void ToCalculate_Commit_Click(object sender, RoutedEventArgs e)
         {
-            DateTime dt = new DateTime();
-            try
-            {
-                dt = Convert.ToDateTime(YearCB.Text + "-" + MonthCB.Text + "-01 01:01:01");
-            }
-            catch (Exception)
-            {
-                Anime_ErrorTip(MonthErrorLB);
-                return;
-            }
+            DateTime dt = GetChosenDate(YearCB.Text, MonthCB.Text);
 
             FileConfig fConfig = new FileConfig();
             List<string> bankList = fConfig.GetBankList();
@@ -244,5 +240,125 @@ namespace SheetGenerator
         }
         #endregion
 
+        #region 累加部分
+        /// <summary>
+        /// 将制定文件夹下的所有同类文件进行累加。放入累加文件夹中
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddUpGetdate_Click(object sender,RoutedEventArgs e)
+        {
+            Anime_BackBtn_Show(BackButton);
+            Anime_CVSchange(stCVS, calGetDateCVS);
+            currentCVS = calGetDateCVS;
+            Manage_onclick("toaddup");
+        }
+        private void AddUp_Click(object sender, RoutedEventArgs e)
+        {
+            Anime_BackBtn_Show(BackButton);
+            Anime_CVSchange(currentCVS, AddupCVS);
+            currentCVS = AddupCVS;
+            
+            //getdate
+            DateTime dt = GetChosenDate(YearCB.Text, MonthCB.Text);
+
+            //get Config
+            FileConfig fConfig = new FileConfig();
+            List<string> bankList = fConfig.GetFileList();
+
+            //start to add up all
+            object[] obbtns = { AddUpProcessBankName_LB, AddUpProcessTableName_LB, AddUpProcessColumnName_LB, AddUpProcessType_LB };
+            AddUpAll mp = new AddUpAll(this, this.Dispatcher, dt, obbtns);
+            Thread calculate = new Thread(new ThreadStart(mp.Addup_all));
+            calculate.SetApartmentState(ApartmentState.STA);
+            calculate.Start();
+        }
+        #endregion
+
+        #region 修改文件中的数据时间和上报时间
+
+        private void AlterdateGetdate_Click(object sender, RoutedEventArgs e)
+        {
+            Anime_BackBtn_Show(BackButton);
+            Anime_CVSchange(stCVS, calGetDateCVS);
+            currentCVS = calGetDateCVS;
+            Manage_onclick("toalterdate");
+        }
+        /// <summary>
+        /// 选定文件所属的时间段
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Alterdate_Click(object sender,RoutedEventArgs e)
+        {
+            Anime_BackBtn_Show(BackButton);
+            Anime_CVSchange(currentCVS, AlterDateCVS);
+            currentCVS = AlterDateCVS;
+        }
+        private void Alterdate_Commit_Click(object sender, RoutedEventArgs e)
+        {
+            Anime_BackBtn_Show(BackButton);
+            Anime_CVSchange(currentCVS, AddupCVS);
+            currentCVS = AddupCVS;
+
+            //getdate
+            DateTime datadt = GetChosenDate(YearCB.Text, MonthCB.Text);
+            DateTime datadtnew = GetChosenDate(DataYearCB.Text, DataMonthCB.Text);
+            DateTime reportdt = Convert.ToDateTime(DataReportDate.Text);
+            object[] obbtns = { AddUpProcessBankName_LB, AddUpProcessTableName_LB, AddUpProcessColumnName_LB, AddUpProcessType_LB };
+
+            AlterDate ad = new AlterDate(this.Dispatcher, datadt, datadtnew, reportdt, obbtns);
+            Thread th = new Thread(new ThreadStart(ad.Alterdate));
+            th.Start();
+        }
+        #endregion
+
+        #region 公用部分
+
+        /// <summary>
+        /// 修改获取时间页面的提交按钮事件
+        /// </summary>
+        /// <param name="partName"></param>
+        private void Manage_onclick(string partName)
+        {
+            switch (partName)
+            {
+                case "tocalculate":
+                    CalCommitBtn.Click -= ToCalculate_Commit_Click;
+                    CalCommitBtn.Click += AddUp_Click;
+                    CalCommitBtn.Click -= Alterdate_Click;
+                    break;
+                case "toaddup":
+                    CalCommitBtn.Click += ToCalculate_Commit_Click;
+                    CalCommitBtn.Click -= AddUp_Click;
+                    CalCommitBtn.Click -= Alterdate_Click;
+                    break;
+                case "toalterdate":
+                    CalCommitBtn.Click -= ToCalculate_Commit_Click;
+                    CalCommitBtn.Click -= AddUp_Click;
+                    CalCommitBtn.Click += Alterdate_Click;
+                    break;
+            }
+        }
+        /// <summary>
+        /// 获取页面指定的时间。。。
+        /// </summary>
+        /// <returns>时间</returns>
+        private DateTime GetChosenDate(string year,string month) 
+        {
+            //getdate
+            DateTime dt = new DateTime();
+            try
+            {
+                dt = Convert.ToDateTime(year + "-" + month + "-01 01:01:01");
+                return dt;
+            }
+            catch (Exception)
+            {
+                Anime_ErrorTip(MonthErrorLB);
+                return DateTime.Now;
+            }
+        }
+        #endregion
     }
 }

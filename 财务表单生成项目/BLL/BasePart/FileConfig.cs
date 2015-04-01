@@ -57,6 +57,29 @@ namespace SheetGenerator.BLL
             }
             return columns;
         }
+        /// <summary>
+        /// 获取指定文件的报送日期和数据日期的位置信息
+        /// </summary>
+        /// <param name="filename">表名</param>
+        /// <returns>日期格的位置</returns>
+        internal List<List<string>> GetDateDetail(string filename)
+        {
+            List<List<string>> colParamDetails = new List<List<string>>();
+            List<string> colParamDetail = new List<string>();
+            XmlNodeList xnFile = xe.SelectNodes("DateSet/*[@filename='" + filename + "']");
+            XmlNodeList xnCol = xnFile[0].ChildNodes;
+            for (int i = 0; i < xnCol.Count; i++)
+            {
+                colParamDetail.Add(xnCol[i].SelectSingleNode("@CHname").Value);
+                colParamDetail.Add(xnCol[i].SelectSingleNode("@Vposition").Value);
+                colParamDetail.Add(xnCol[i].SelectSingleNode("@Hposition").Value);
+                colParamDetail.Add(xnCol[i].SelectSingleNode("@CHname").Value);
+                colParamDetail.Add("v");
+                colParamDetails.Add(colParamDetail);
+                colParamDetail = new List<string>();
+            }
+            return colParamDetails;
+        }
         /*
          * 返回指定文件下的指定列的相关信息。
          */

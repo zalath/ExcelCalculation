@@ -12,9 +12,11 @@
         <Button Name="CloseButton" Style="{StaticResource ClosebtnTemplate}" ToolTip="关闭" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="CloseButton_Click" Margin="0,0,0,10" />
         <Button Name="BackButton" IsEnabled="False" Opacity="0" Style="{StaticResource LittlebuttonTemplate}" Width="30" Height="30" Content="0" Foreground="White" ToolTip="返回" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="BackBtn_Click" Margin="110,0,0,10" />
         <Canvas Margin="15,20,20,15">
-            <Canvas Name="stCVS">
+            <Canvas Name="stCVS" Canvas.Left="0" Opacity="1">
                 <Button Content="计算" Canvas.Left="30" Canvas.Top="60" Foreground="White" Height="70" Name="calculateBtn" Style="{StaticResource NextbuttonTemplate}" Width="70" Click="ToCalculate_Click"  />
                 <Button Content="编辑算式" Canvas.Left="30" Canvas.Top="160" Foreground="White" Height="70" Name="editEquateBtn" Style="{StaticResource NextbuttonTemplate}" Width="70" Click="EditEquate_Click"  />
+                <Button Content="累加运算" Canvas.Left="30" Canvas.Top="260" Foreground="White" Height="70" Name="AddUpBtn" Style="{StaticResource NextbuttonTemplate}" Width="70" Click="AddUpGetdate_Click"  />
+                <Button Content="修改日期" Canvas.Left="130" Canvas.Top="60" Foreground="White" Height="70" Name="AlterDateBtn" Style="{StaticResource NextbuttonTemplate}" Width="70" Click="AlterdateGetdate_Click"  />
             </Canvas>
             <!--计算-->
             <!--计算_获取时间-->
@@ -148,6 +150,41 @@
             <Canvas Name="ResultMsgCVS" Height="40" Width="300" Canvas.Top="150" Opacity="0" Canvas.Left="400">
                 <Label Name="ResultMsgLB" Canvas.Left="60" Content="是否成功" Foreground="White" FontSize="23"></Label>
             </Canvas>
+            <!--累加-->
+            <!--使用-计算-部分的获取时间模块-->
+            <!--累加__显示进度-->
+            <Canvas Name="AddupCVS" Canvas.Left="400" Opacity="0">
+                <Label Name="AddUpProcessBankName_LB" Canvas.Left="0" Canvas.Top="100" Foreground="white" Content="...."></Label>
+                <Label Name="AddUpProcessTableName_LB" Canvas.Left="0" Canvas.Top="130" Foreground="white" Content="...."></Label>
+                <Label Name="AddUpProcessColumnName_LB" Canvas.Left="0" Canvas.Top="160" Foreground="white" Content="...."></Label>
+                <Label Name="AddUpProcessType_LB" Canvas.Left="0" Canvas.Top="190" Foreground="white" Content="...."></Label>
+            </Canvas>
+            <!--修改时间-->
+            <!--使用-计算-部分的获取时间模块-->
+            <!--修改时间__获得指定的时间-->
+            <Canvas Name="AlterDateCVS" Canvas.Left="400" Opacity="0">
+                <Label Name="MonthTitl" Canvas.Left="20" Canvas.Top="90" Content="数据月份：" Foreground="White"/>
+                <ComboBox Name="DataYearCB" Canvas.Left="30" Canvas.Top="120" Width="90"/>
+                <ComboBox Name="DataMonthCB" Text="1" Canvas.Left="130" Canvas.Top="120" Width="70">
+                    <Label Content="1"/>
+                    <Label Content="2"/>
+                    <Label Content="3"/>
+                    <Label Content="4"/>
+                    <Label Content="5"/>
+                    <Label Content="6"/>
+                    <Label Content="7"/>
+                    <Label Content="8"/>
+                    <Label Content="9"/>
+                    <Label Content="10"/>
+                    <Label Content="11"/>
+                    <Label Content="12"/>
+                </ComboBox>
+                <Label Name="MonthTil" Canvas.Left="20" Canvas.Top="160" Content="报送日期：" Foreground="White"/>
+                <DatePicker Name="DataReportDate" Canvas.Left="30" Canvas.Top="185" Width="175"></DatePicker>
+                <Button Content="确定" FontSize="10" Width="40" Height="40" Canvas.Left="90" Canvas.Top="260" Foreground="White" Name="Alter_commit_btn" Style="{StaticResource LittlebuttonTemplate}" Click="Alterdate_Commit_Click"  />
+                <Label Name="MonthErrLB" Canvas.Left="70" Canvas.Top="230" Content="月份格式不正确！" Foreground="White" Opacity="0"/>
+            </Canvas>
+            <!--使用-累加-部分的显示进度模块-->
         </Canvas>
     </Grid>
     <Window.Background>

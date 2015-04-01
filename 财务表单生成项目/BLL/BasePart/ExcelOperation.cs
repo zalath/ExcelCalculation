@@ -171,21 +171,33 @@ namespace SheetGenerator.BLL
                 {
                     _wbk.Save();
                 }
-                //app.AlertBeforeOverwriting = false; //屏蔽掉系统跳出的Alert
-                _wbk.Close();
-                wbks.Close();
-                app.Quit();
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(app);
-                app = null;
 
-                Process[] ExcelPList = Process.GetProcessesByName("Excel");
-                foreach (Process p in ExcelPList)
-                {
-                    p.Kill();
-                }
+                CloseWorksheet(_wbk, wbks, app);
             }
             catch (Exception)
             { }
+        }
+
+        /// <summary>
+        /// close operated excel files
+        /// </summary>
+        /// <param name="_wbk">current operating workbook</param>
+        /// <param name="wbks">workbooks that handled</param>
+        /// <param name="app">the excel application</param>
+        internal void CloseWorksheet(_Workbook _wbk,Workbooks wbks, Application app)
+        {
+            //app.AlertBeforeOverwriting = false; //屏蔽掉系统跳出的Alert
+            _wbk.Close();
+            wbks.Close();
+            app.Quit();
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(app);
+            app = null;
+
+            Process[] ExcelPList = Process.GetProcessesByName("Excel");
+            foreach (Process p in ExcelPList)
+            {
+                p.Kill();
+            }
         }
        
         /// <summary>
@@ -197,7 +209,7 @@ namespace SheetGenerator.BLL
         /// <param name="dayNo">the day number in Excel</param>
         /// <param name="valueNo">the number of the value in the list</param>
         /// <param name="type">read/write</param>
-        private void AboutValue(ref List<double> paramValues, List<string> columnDetail, _Worksheet _wsh, int dayNo, int valueNo, string type)
+        internal void AboutValue(ref List<double> paramValues, List<string> columnDetail, _Worksheet _wsh, int dayNo, int valueNo, string type)
         {
             try
             {
@@ -289,7 +301,7 @@ namespace SheetGenerator.BLL
         /// <param name="month">the seleted month</param>
         /// <param name="daysCount">amount of day of the selected month,return</param>
         /// <returns>month part of the tablename</returns>
-        private string GetMonth(DateTime month, ref int daysCount)
+        internal string GetMonth(DateTime month, ref int daysCount)
         {
             int days = DateTime.DaysInMonth(month.Year, month.Month);
             daysCount = days;

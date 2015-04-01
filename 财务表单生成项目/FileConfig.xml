@@ -154,6 +154,40 @@
       <column3 Hposition="C" Vposition="13" name="wfyr_all" CHname="银行已增加余额，系统未增加余额" />
       <column4 Hposition="C" Vposition="14" name="wfyc_all" CHname="银行已减少余额，系统未减少余额" />
     </wdztj>
+    <b_13 filename="表1_13" tabletype="v" filetype=".xls" procedureName="">
+      <column1 Hpositoin="B" Vposition="7" name="qcyj" CHname="期初备付金账户中押金余额"/>
+      <column2 Hpositoin="C" Vposition="7" name="zzsd" CHname="转账方式收到"/>
+      <column3 Hpositoin="D" Vposition="7" name="xjcj" CHname="现金形式缴存"/>
+      <column4 Hpositoin="E" Vposition="7" name="zzfc" CHname="转账方式直接付出"/>
+      <column1 Hpositoin="F" Vposition="7" name="xjsh" CHname="现金形式先行赎回业务中申请结转金额"/>
+      <column1 Hpositoin="G" Vposition="7" name="qmyj" CHname="期末备付金账户中押金余额"/>
+    </b_13>
+    <tsmx filename="表1_6" tabletype="h" filetype=".xls" procedureName="[备付金对账].[获取统计_特殊业务]">
+      <column1 Hposition="C" Vposition="11" name="F01" CHname="向备付金银行缴存现金形式备付金"/>
+      <column2 Hposition="C" Vposition="12" name="F02" CHname="备付金银行间头寸调拨（调入行）"/>
+      <column3 Hposition="C" Vposition="13" name="F03" CHname="收到利息收入"/>
+      <column4 Hposition="C" Vposition="14" name="F04" CHname="备付金非活期存款转活期存款（活期账户）"/>
+      <column5 Hposition="C" Vposition="15" name="F05" CHname="备付金活期存款转非活期存款（非活期账户）"/>
+      <column6 Hposition="C" Vposition="16" name="F06" CHname="当日申请存放的自有资金"/>
+      <column7 Hposition="C" Vposition="17" name="F07" CHname="利息收入划拨存管银行"/>
+      <column8 Hposition="C" Vposition="19" name="F08" CHname="其它_向备付金银行缴存现金形式预付卡押金"/>
+      <column9 Hposition="C" Vposition="20" name="F09" CHname="其它_F09"/>
+      <column10 Hposition="C" Vposition="21" name="F10" CHname="增加_合计"/>
+      <column11 Hposition="C" Vposition="23" name="G01" CHname="备付金银行间头寸调拨（调出行）"/>
+      <column12 Hposition="C" Vposition="24" name="G02" CHname="利息收入划拨存管银行"/>
+      <column13 Hposition="C" Vposition="25" name="G03" CHname="银行扣取手续费、管理费等费用"/>
+      <column14 Hposition="C" Vposition="26" name="G04" CHname="备付金非活期存款转活期存款（非活期账户）"/>
+      <column15 Hposition="C" Vposition="27" name="G05" CHname="备付金活期存款转非活期存款（活期账户）"/>
+      <column16 Hposition="C" Vposition="28" name="G06" CHname="结转风险准备金（存管银行）"/>
+      <column17 Hposition="C" Vposition="29" name="G07" CHname="结转利息收入（存管银行）"/>
+      <column18 Hposition="C" Vposition="30" name="G08" CHname="结转手续费收入（存管银行）"/>
+      <column19 Hposition="C" Vposition="31" name="G09" CHname="办理预付卡先行现金赎回业务（存管银行）"/>
+      <column20 Hposition="C" Vposition="32" name="G10" CHname="当日提出原申请存放的自有资金（存管银行）"/>
+      <column21 Hposition="C" Vposition="34" name="G11" CHname="其它_以转账方式退回购卡押金"/>
+      <column22 Hposition="C" Vposition="35" name="G12" CHname="其它_办理预付卡押金先行现金赎回业务（存管银行）"/>
+      <column23 Hposition="C" Vposition="36" name="G13" CHname="其它_G13"/>
+      <column24 Hposition="C" Vposition="37" name="G14" CHname="减少_合计"/>
+    </tsmx>
     <standardtablename>
       <context>20140901_20140930表1_1[BJ0000004]北京钱袋宝支付技术有限公司_民生银行998869</context>
       <format>time_表n_[BJ0000004]北京钱袋宝支付技术有限公司_银行名称_商户号后六位</format>
