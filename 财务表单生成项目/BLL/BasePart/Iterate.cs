@@ -70,8 +70,15 @@ namespace SheetGenerator.BLL
             AlterDate ad = new AlterDate();
             for (int i = 0; i < dis.Count(); i++)//遍历银行
             {
-                if (dis[i].Name == "模板" || dis[i].Name == "累加结果")
-                    continue;
+                if (type == "addup")//累加时不操作累加结果，更改日期时需要更改累加结果
+                {
+                    if (dis[i].Name == "模板" || dis[i].Name == "累加结果")
+                        continue;
+                }
+                else if(type == "alterdate")
+                    if (dis[i].Name == "模板")
+                        continue;
+                
                 showProcess(AddUpProcessBankName_LB, dis[i].Name);
                 for (int j = 0; j < fis.Count(); j++)//遍历文件
                 {

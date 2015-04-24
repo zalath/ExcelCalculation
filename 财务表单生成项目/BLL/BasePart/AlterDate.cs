@@ -39,7 +39,7 @@ namespace SheetGenerator.BLL
                 _Workbook _wbk = wbks.Open(fileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
                 Sheets shs = _wbk.Sheets;
                 _Worksheet _wsh = (_Worksheet)shs.get_Item(1);//[0];//}
-                app.AlertBeforeOverwriting = false; //屏蔽掉系统跳出的Alert
+                //app.AlertBeforeOverwriting = false; //屏蔽掉系统跳出的Alert
 
                 eo.AboutValue(ref result, columnDetail, _wsh, 1, 1, "write");
                 eo.CloseWorksheet(_wbk, wbks, app);

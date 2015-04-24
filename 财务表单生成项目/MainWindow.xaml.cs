@@ -324,13 +324,13 @@ namespace SheetGenerator
             switch (partName)
             {
                 case "tocalculate":
-                    CalCommitBtn.Click -= ToCalculate_Commit_Click;
-                    CalCommitBtn.Click += AddUp_Click;
+                    CalCommitBtn.Click += ToCalculate_Commit_Click;
+                    CalCommitBtn.Click -= AddUp_Click;
                     CalCommitBtn.Click -= Alterdate_Click;
                     break;
                 case "toaddup":
-                    CalCommitBtn.Click += ToCalculate_Commit_Click;
-                    CalCommitBtn.Click -= AddUp_Click;
+                    CalCommitBtn.Click -= ToCalculate_Commit_Click;
+                    CalCommitBtn.Click += AddUp_Click;
                     CalCommitBtn.Click -= Alterdate_Click;
                     break;
                 case "toalterdate":
